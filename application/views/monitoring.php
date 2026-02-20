@@ -1703,6 +1703,8 @@
             const btn = $('#editLoanDetails');
             const original = btn.data('original');
 
+            $('#dateDropdownBtn').prop('disabled', false);
+
             if (!original) return;
 
             $('#header_capital_amt').text(original.header_capital_amt);
