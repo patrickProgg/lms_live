@@ -733,7 +733,7 @@ class Monitoring_cont extends CI_Controller
         for ($row = 1; $row <= 14; $row++) {
             $sheet->mergeCells('A' . $row . ':C' . $row);
         }
-        $sheet->mergeCells('G3:H3');
+        $sheet->mergeCells('G4:H4');
         $sheet->mergeCells('F5:H5');
         $sheet->mergeCells('F6:H6');
         for ($row = 15; $row <= 16; $row++) {
