@@ -532,10 +532,10 @@ class Monitoring_cont extends CI_Controller
 
         $data = [
             [$formattedDate],
-            ["AREA 4'-Payment", "", "", ""],
-            ["Processing Fee", "", "", "", "", "", "RP LENDING SERVICES", ""],
-            ["EXCESS", "", "", "", "", "Area 4", "", ""],
-            ["T O T A L - C P", "", "", "", "", "LEAH MAE GUCOR", "", ""],
+            ["Payment", "", "", ""],
+            ["Processing Fee", "", "", "", "", "", "Rentrap Lending", ""],
+            ["EXCESS", "", "", "", "", "", "", ""],
+            ["T O T A L - C P", "", "", "", "", "", "", ""],
             ["LESS : E X P E N S E S", "", "", "", "", "CASH COUNT", "", ""],
             ["Gas", "", "", "", "", "PIECES", "DENOMINATION", "AMOUNT"],
             ["Motor Shop", "", "", "", "", "", "", ""],
