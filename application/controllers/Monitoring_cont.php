@@ -813,7 +813,7 @@ class Monitoring_cont extends CI_Controller
         }
 
         // Bold rows
-        $totalRows = ['D2', 'D3', 'D4', 'D5', 'D15', 'D16', 'A18', 'D16', 'D18', 'A20', 'B20', 'D20', 'A33', 'A36', 'B36', 'C36', 'D36', 'A42', 'A43', 'F7', 'G7', 'H7', 'F18', 'H18', 'G3', 'F4', 'F5', 'F6', 'A5', 'A15', 'A16', 'D43', 'A2'];
+        $totalRows = ['D2', 'D3', 'D4', 'D5', 'D15', 'D16', 'A18', 'D16', 'D18', 'A20', 'B20', 'D20', 'A33', 'A36', 'B36', 'C36', 'D36', 'A42', 'A43', 'F7', 'G7', 'H7', 'F18', 'H18', 'G3', 'F4', 'F5', 'F6', 'A5', 'A15', 'A16', 'D43', 'A2', 'G4'];
         foreach ($totalRows as $cell) {
             $sheet->getStyle($cell)->getFont()->setBold(true);
         }
