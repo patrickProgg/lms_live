@@ -319,23 +319,34 @@
             allowEnterKey: false
         }).then((result) => {
             if (result.isConfirmed) {
+
+                Swal.fire({
+                    title: 'Deleting pullout...',
+                    html: 'Please wait',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
+                });
+
                 $.ajax({
                     url: "<?php echo base_url('PullOut_cont/delete_id'); ?>",
                     type: 'POST',
                     data: { id: id },
                     dataType: 'json',
                     success: function (res) {
+                        Swal.close();
                         Swal.fire({
                             title: 'Deleted!',
                             text: res.message,
                             icon: 'success',
                             timer: 800,
-                            showConfirmButton: false
+                            showConfirmButton: false,
+                            timerProgressBar: true
                         }).then(() => {
                             pull_out_table.ajax.reload();
                         });
                     },
                     error: function (err) {
+                        Swal.close();
                         console.log(err);
                         Swal.fire('Error', 'Server error. Check console.', 'error');
                     }

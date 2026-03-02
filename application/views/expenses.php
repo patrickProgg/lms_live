@@ -548,6 +548,7 @@
                         });
                     },
                     error: function (xhr, status, error) {
+                        Swal.close();
                         Swal.fire({
                             title: 'Error!',
                             text: 'Something went wrong: ' + error,
@@ -607,23 +608,34 @@
             allowEnterKey: false
         }).then((result) => {
             if (result.isConfirmed) {
+
+                Swal.fire({
+                    title: 'Deleting client...',
+                    html: 'Please wait',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
+                });
+
                 $.ajax({
                     url: "<?php echo base_url('Expenses_cont/delete_id'); ?>",
                     type: 'POST',
                     data: { id: id },
                     dataType: 'json',
                     success: function (res) {
+                        Swal.close();
                         Swal.fire({
                             title: 'Deleted!',
                             text: res.message,
                             icon: 'success',
-                            timer: 500,
-                            showConfirmButton: false
+                            timer: 800,
+                            showConfirmButton: false,
+                            timerProgressBar: true
                         }).then(() => {
                             expenses_table.ajax.reload();
                         });
                     },
                     error: function (err) {
+                        Swal.close();
                         console.log(err);
                         Swal.fire('Error', 'Server error. Check console.', 'error');
                     }
