@@ -36,22 +36,23 @@
         color: #333;
     }
 
-    #bulk_payment_table th,
-    #bulk_payment_table td {
-        white-space: nowrap;
-        font-size: 0.9rem;
+    /* Form control focus effects */
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
     }
 
-    #bulk_payment_table th {
-        background-color: #f8f9fa;
-        position: sticky;
-        top: 0;
-        z-index: 10;
+    /* Quick amount buttons hover */
+    .quick-capital:hover {
+        background-color: #198754;
+        border-color: #198754;
+        color: white;
     }
 
-    #bulk_payment_table tfoot td {
-        background-color: #f8f9fa;
-        font-weight: bold;
+    /* Summary display */
+    .bg-light {
+        background-color: #f8f9fa !important;
     }
 </style>
 
@@ -81,14 +82,6 @@
                             style="width: 140px; display: inline-block; height: 34px; background-color: white; color: #444242; border-radius: 6px; border:1px solid var(--bs-secondary)"
                             class="form-control" id="selected_date" name="selected_date" value="<?= date('Y-m-d') ?>">
                     </div>
-
-                    <!-- <div class="col-md-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" name="datefilter" id="datefilter"
-                                placeholder="Filter date" autocomplete="off" />
-                            <label for="datefilter">Filter Date</label>
-                        </div>
-                    </div> -->
                 </div>
                 <table id="client_table" class="table table-hover" style="width:100%">
                     <thead class="table-secondary">
@@ -111,87 +104,180 @@
 
         <!-- ADD MODAL -->
         <div class="modal fade" id="addLoaner" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog" style="max-width:600px; margin-top: 10px;">
+            <div class="modal-dialog" style="max-width:700px; margin-top: 10px;">
                 <div class="modal-content">
 
                     <div class="modal-header bg-light border-bottom">
-                        <h5 class="modal-title fw-bold">Client Details</h5>
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas fa-user-plus me-2 text-primary"></i>
+                            Client Details
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <div class="modal-body">
-                        <div class="container">
+                        <div class="container p-0">
+                            <!-- Client Information Card -->
                             <form id="client_form">
-                                <div class="mb-3 row align-items-center">
-                                    <div class="col-md-3 position-relative">
-                                        <label for="acc_no" class="form-label">Acc No.</label>
-                                        <input type="text" class="form-control" placeholder="Enter Acc No." id="acc_no"
-                                            name="acc_no" autocomplete="off">
+                                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h6 class="fw-bold mb-0">
+                                            <i class="fas fa-id-card me-2 text-primary"></i>
+                                            Client Information
+                                        </h6>
                                     </div>
-                                    <div class="col-md-9 position-relative">
-                                        <label for="fullName" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter Fullname"
-                                            id="full_name" name="full_name" autocomplete="off">
+                                    <div class="card-body">
+                                        <div class="row mb-4">
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-hashtag me-1"></i> ACC NO.
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Acc No." id="acc_no" name="acc_no"
+                                                    autocomplete="off">
+                                            </div>
+                                            <div class="col-md-9">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-user me-1"></i> FULL NAME
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Fullname" id="full_name" name="full_name"
+                                                    autocomplete="off">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-map-marker-alt me-1"></i> ADDRESS
+                                            </label>
+                                            <input type="text" class="form-control form-control-lg"
+                                                placeholder="Enter Address" id="address" name="address">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-phone me-1"></i> CONTACT #
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Contact #" id="contact_no_1" name="contact_no_1"
+                                                    autocomplete="off" maxlength="11">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-phone-alt me-1"></i> ALT CONTACT #
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Contact #" id="contact_no_2" name="contact_no_2"
+                                                    autocomplete="off" maxlength="11">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-calendar-alt me-1"></i> DATE
+                                                </label>
+                                                <input type="date" class="form-control form-control-lg" id="date_added"
+                                                    name="date_added" value="<?= date('Y-m-d') ?>">
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
-                                <div class="mb-3 row align-items-center">
-                                    <div class="col-md-12 position-relative">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" placeholder="Enter Address" id="address"
-                                            name="address">
+                                <!-- Loan Details Card -->
+                                <div class="card border-0 shadow-sm rounded-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h6 class="fw-bold mb-0">
+                                            <i class="fas fa-hand-holding-usd me-2 text-success"></i>
+                                            Loan Details
+                                        </h6>
                                     </div>
-                                </div>
+                                    <div class="card-body">
+                                        <div class="row mb-4">
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-coins me-1"></i> AMOUNT
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light border-0 fw-bold">₱</span>
+                                                    <input type="number" class="form-control form-control-lg"
+                                                        id="capital_amt" name="capital_amt" placeholder="0.00" min="0"
+                                                        step="0.01">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-percent me-1"></i> INTEREST %
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-lg"
+                                                        id="interest" name="interest" value="15" min="0" step="0.1">
+                                                    <span class="input-group-text bg-light border-0">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-plus-circle me-1"></i> ADDED AMOUNT
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light border-0 fw-bold">₱</span>
+                                                    <input type="number" class="form-control form-control-lg"
+                                                        id="added_amt" name="added_amt" placeholder="0.00" min="0"
+                                                        step="0.01">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-calculator me-1"></i> TOTAL AMOUNT
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light border-0 fw-bold">₱</span>
+                                                    <input type="text"
+                                                        class="form-control form-control-lg fw-bold text-success"
+                                                        id="total_amt" name="total_amt" readonly
+                                                        style="background-color: #f8f9fa;">
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                <div class="mb-3 row align-items-center">
-                                    <div class="col-md-4 position-relative">
-                                        <label for="fullName" class="form-label">Contact #</label>
-                                        <input type="text" class="form-control" placeholder="Enter Contact #"
-                                            id="contact_no_1" name="contact_no_1" autocomplete="off" maxlength="11">
-                                    </div>
-                                    <div class="col-md-4 position-relative">
-                                        <label for="fullName" class="form-label">Alt Contact #</label>
-                                        <input type="text" class="form-control" placeholder="Enter Contact #"
-                                            id="contact_no_2" name="contact_no_2" autocomplete="off" maxlength="11">
-                                    </div>
+                                        <div>
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-bolt me-1"></i> QUICK SELECT AMOUNT
+                                            </label>
+                                            <div class="d-flex gap-2 flex-wrap">
+                                                <button type="button"
+                                                    class="btn btn-outline-success btn-sm quick-capital"
+                                                    data-amount="1000">₱1,000</button>
+                                                <button type="button"
+                                                    class="btn btn-outline-success btn-sm quick-capital"
+                                                    data-amount="2000">₱2,000</button>
+                                                <button type="button"
+                                                    class="btn btn-outline-success btn-sm quick-capital"
+                                                    data-amount="3000">₱3,000</button>
+                                                <button type="button"
+                                                    class="btn btn-outline-success btn-sm quick-capital"
+                                                    data-amount="5000">₱5,000</button>
+                                                <button type="button"
+                                                    class="btn btn-outline-success btn-sm quick-capital"
+                                                    data-amount="10000">₱10,000</button>
+                                                <button type="button"
+                                                    class="btn btn-outline-success btn-sm quick-capital"
+                                                    data-amount="20000">₱20,000</button>
+                                            </div>
+                                        </div>
 
-                                    <div class="col-md-4 position-relative">
-                                        <label for="date" class="form-label">Date</label>
-                                        <input type="date" class="form-control" id="date_added" name="date_added"
-                                            value="<?= date('Y-m-d') ?>">
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 row">
-                                    <div class="col-md-3">
-                                        <label for="position" class="form-label">Amount</label>
-                                        <input type="number" class="form-control" id="capital_amt" name="capital_amt"
-                                            placeholder="Enter Amount">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="department" class="form-label">Interest %</label>
-                                        <input type="text" class="form-control" id="interest" name="interest"
-                                            value="15">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="department" class="form-label">Added Amount</label>
-                                        <input type="number" class="form-control" id="added_amt" name="added_amt"
-                                            placeholder="Enter Added Amount">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="department" class="form-label">Total Amount</label>
-                                        <input type="number" class="form-control" id="total_amt" name="total_amt"
-                                            readonly>
                                     </div>
                                 </div>
                             </form>
 
                             <div class="row">
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" id="add_client" name="submit"
-                                        class="btn btn-primary">Add</button>
-                                    <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal"
-                                        id="closeModalBtn">Close</button>
+                                    <button type="button" id="add_client" name="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-1"></i> Save Client
+                                    </button>
+                                    <button type="button" class="btn btn-light ms-2" data-bs-dismiss="modal"
+                                        id="closeModalBtn">
+                                        <i class="fas fa-times me-1"></i> Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -204,68 +290,102 @@
 
         <!-- EDIT MODAL -->
         <div class="modal fade" id="editLoaner" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog" style="max-width:600px;  margin-top: 10px;">
+            <div class="modal-dialog" style="max-width:700px; margin-top: 10px;">
                 <div class="modal-content">
 
                     <div class="modal-header bg-light border-bottom">
-                        <h5 class="modal-title fw-bold">Details</h5>
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas fa-edit me-2 text-primary"></i>
+                            Edit Client Details
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <div class="modal-body">
-                        <div class="container">
-                            <form id="edit_client_form">
-                                <div class="mb-3 row align-items-center">
-                                    <div class="col-md-3 position-relative">
-                                        <label for="edit_acc_no" class="form-label">Acc No.</label>
-                                        <input type="text" class="form-control" placeholder="Enter Acc No."
-                                            id="edit_acc_no" name="edit_acc_no" autocomplete="off">
-                                    </div>
-                                    <div class="col-md-9 position-relative">
-                                        <label for="fullName" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter Fullname"
-                                            id="edit_full_name" name="edit_full_name" autocomplete="off">
-                                    </div>
+                        <div class="container p-0">
+                            <!-- Hidden ID field -->
+                            <input type="hidden" id="edit_client_id" name="edit_client_id">
+
+                            <!-- Client Information Card -->
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div class="card-header bg-white border-0">
+                                    <h6 class="fw-bold mb-0">
+                                        <i class="fas fa-id-card me-2 text-primary"></i>
+                                        Client Information
+                                    </h6>
                                 </div>
+                                <div class="card-body">
+                                    <form id="edit_client_form">
+                                        <div class="row mb-4">
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-hashtag me-1"></i> ACC NO.
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Acc No." id="edit_acc_no" name="edit_acc_no"
+                                                    autocomplete="off">
+                                            </div>
+                                            <div class="col-md-9">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-user me-1"></i> FULL NAME
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Fullname" id="edit_full_name"
+                                                    name="edit_full_name" autocomplete="off">
+                                            </div>
+                                        </div>
 
-                                <div class="mb-3 row align-items-center">
-                                    <div class="col-md-12 position-relative">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" placeholder="Enter Address"
-                                            id="edit_address" name="edit_address">
-                                    </div>
+                                        <div class="mb-4">
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-map-marker-alt me-1"></i> ADDRESS
+                                            </label>
+                                            <input type="text" class="form-control form-control-lg"
+                                                placeholder="Enter Address" id="edit_address" name="edit_address">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-phone me-1"></i> CONTACT #
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Contact #" id="edit_contact_no_1"
+                                                    name="edit_contact_no_1" autocomplete="off" maxlength="11">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-phone-alt me-1"></i> ALT CONTACT #
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg"
+                                                    placeholder="Enter Contact #" id="edit_contact_no_2"
+                                                    name="edit_contact_no_2" autocomplete="off" maxlength="11">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-bold text-muted small mb-2">
+                                                    <i class="fas fa-calendar-alt me-1"></i> DATE STARTED
+                                                </label>
+                                                <input type="date" class="form-control form-control-lg"
+                                                    id="edit_start_date" name="edit_start_date"
+                                                    value="<?= date('Y-m-d') ?>">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
+                            </div>
 
-                                <div class="mb-3 row align-items-center">
-                                    <div class="col-md-4 position-relative">
-                                        <label for="fullName" class="form-label">Contact #</label>
-                                        <input type="text" class="form-control" placeholder="Enter Contact #"
-                                            id="edit_contact_no_1" name="edit_contact_no_1" autocomplete="off"
-                                            maxlength="11">
-                                    </div>
-                                    <div class="col-md-4 position-relative">
-                                        <label for="fullName" class="form-label">Alt Contact #</label>
-                                        <input type="text" class="form-control" placeholder="Enter Contact #"
-                                            id="edit_contact_no_2" name="edit_contact_no_2" autocomplete="off"
-                                            maxlength="11">
-                                    </div>
-
-                                    <div class="col-md-4 position-relative">
-                                        <label for="date" class="form-label">Date</label>
-                                        <input type="date" class="form-control" id="edit_start_date"
-                                            name="edit_start_date" value="<?= date('Y-m-d') ?>">
-                                    </div>
-                                </div>
-                            </form>
-
+                            <!-- Action Buttons -->
                             <div class="row">
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" id="deleteBtn"
-                                        class="btn btn-outline-danger me-2">Delete</button>
-                                    <button type="button" id="update_client" name="submit"
-                                        class="btn btn-primary ">Update</button>
-                                    <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal"
-                                        id="closeModalBtn">Close</button>
+                                <div class="d-flex justify-content-end align-items-center">
+                                    <button type="button" id="deleteBtn" class="btn btn-outline-danger me-auto">
+                                        <i class="fas fa-trash-alt me-1"></i> Delete
+                                    </button>
+                                    <button type="button" id="update_client" name="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-1"></i> Update
+                                    </button>
+                                    <button type="button" class="btn btn-light ms-2" data-bs-dismiss="modal"
+                                        id="closeModalBtn">
+                                        <i class="fas fa-times me-1"></i> Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -274,160 +394,202 @@
                 </div>
             </div>
         </div>
+
         <!-- EDIT MODAL -->
 
         <!-- VIEW MODAL -->
         <div class="modal fade" id="viewLoaner" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog" style="max-width:1200px; margin-top: 10px;">
-                <div class="table-data">
-                    <div class="modal-content">
-                        <div class="modal-body pb-0">
-                            <div class="container">
-                                <div class="row g-3" style="font-size: 14px;">
-                                    <div class="col-md-5">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <label class="form-label">No :
-                                                    <span id="header_acc_no" style="font-weight: bold;"></span>
-                                                </label>
-                                            </div>
+            <div class="modal-dialog modal-xl" style="margin-top: 10px;">
+                <div class="modal-content">
+                    <!-- Header -->
+                    <div class="modal-header bg-light border-bottom">
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas fa-file-invoice me-2 text-primary"></i>
+                            Loan Details
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
 
-                                            <div class="col-9">
-                                                <label class="form-label">Full Name:
-                                                    <span id="header_name" style="font-weight: bold;"></span>
-                                                </label>
+                    <!-- Body -->
+                    <div class="modal-body px-3 pb-0">
+                        <div class="container-fluid px-0">
+                            <div class="card border-0 shadow-sm rounded-3 mb-4">
+                                <div class="card-body pb-0 pt-0">
+                                    <div class="row g-2">
+                                        <div class="col-md-4">
+                                            <div class="border-start border-3 border-primary ps-3">
+                                                <h6 class="text-primary mb-3"><i class="fas fa-user me-2"></i>Client
+                                                    Information</h6>
+                                                <table class="table table-sm table-borderless">
+                                                    <tr>
+                                                        <td class="text-muted ps-0" width="30%">Acc No:</td>
+                                                        <td class="fw-bold" id="header_acc_no">—</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Full Name:</td>
+                                                        <td class="fw-bold" id="header_name">—</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Address:</td>
+                                                        <td class="fw-bold" id="header_address">—</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Loan Date:</td>
+                                                        <td class="fw-bold" id="header_loan_date">—</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Due Date:</td>
+                                                        <td class="fw-bold" id="header_due_date">—</td>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </div>
 
-                                        <div class="mb-2">
-                                            <label class="form-label">Address :
-                                                <span id="header_address" style="font-weight: bold;"></span>
-                                            </label>
+                                        <!-- Loan Details -->
+                                        <div class="col-md-4">
+                                            <div class="border-start border-3 border-success ps-3">
+                                                <h6 class="text-success mb-3"><i class="fas fa-coins me-2"></i>Loan
+                                                    Details</h6>
+                                                <table class="table table-sm table-borderless">
+                                                    <tr>
+                                                        <td class="text-muted ps-0" width="45%">Capital Amt:</td>
+                                                        <td class="fw-bold text-primary">₱ <span
+                                                                id="header_capital_amt">0.00</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Interest:</td>
+                                                        <td class="fw-bold"><span id="header_interest">0</span>%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Added Amt:</td>
+                                                        <td class="fw-bold text-info">₱ <span
+                                                                id="header_added_amt">0.00</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Status:</td>
+                                                        <td class="fw-bold"><span id="header_status">Active</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
-                                        <div class="mb-2">
-                                            <label class="form-label">Loan Date :
-                                                <span id="header_loan_date" style="font-weight: bold;"></span>
-                                            </label>
+
+                                        <!-- Financial Summary -->
+                                        <div class="col-md-4">
+                                            <div class="border-start border-3 border-danger ps-3">
+                                                <h6 class="text-danger mb-3"><i
+                                                        class="fas fa-chart-line me-2"></i>Summary</h6>
+                                                <table class="table table-sm table-borderless">
+                                                    <tr>
+                                                        <td class="text-muted ps-0" width="50%">Total Amt:</td>
+                                                        <td class="fw-bold text-success">₱ <span
+                                                                id="header_total_amt">0.00</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Running Bal:</td>
+                                                        <td class="fw-bold text-danger">₱ <span
+                                                                id="header_running_balance">0.00</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted ps-0">Date Closed:</td>
+                                                        <td class="fw-bold text-secondary" id="header_date_completed">—
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td colspan="2" class="p-0 border-0">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-end gap-2 mt-2 py-2 border-top">
+                                                                <!-- Date Filter -->
+                                                                <div class="dropdown" style="width: 167px;">
+                                                                    <button
+                                                                        class="btn btn-sm btn-outline-secondary dropdown-toggle w-100 text-start"
+                                                                        type="button" id="dateDropdownBtn"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                                                        style="height: 30px;">
+                                                                        Select Date Range
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" id="header_date_arr"
+                                                                        style="max-height: 200px; overflow-y: auto; z-index: 9999;">
+                                                                        <!-- Options will be appended here -->
+                                                                    </ul>
+                                                                </div>
+
+                                                                <button class="btn btn-sm btn-success"
+                                                                    id="editLoanDetails">
+                                                                    <i class="fas fa-edit me-1"></i> Edit
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger" id="cancelEdit"
+                                                                    style="display: none;">
+                                                                    <i class="fas fa-times me-1"></i> Cancel
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <label class="form-label">Due Date :
-                                                <span id="header_due_date" style="font-weight: bold;"></span>
-                                            </label>
-                                        </div>
-                                        <input type="hidden" id="header_id">
-                                        <input type="hidden" id="header_loan_id">
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">
-                                                Capital Amt : ₱ <span id="header_capital_amt"
-                                                    style="font-weight: bold;"></span>
-                                            </label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="form-label">
-                                                Interest : % <span id="header_interest"
-                                                    style="font-weight: bold;"></span>
-                                            </label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="form-label">
-                                                Added Amt : ₱ <span id="header_added_amt"
-                                                    style="font-weight: bold;"></span>
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="form-label">
-                                                Status : <span id="header_status" style="font-weight: bold;"
-                                                    class="status"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="mb-2">
-                                            <label class="form-label">
-                                                Total Amt : ₱ <span id="header_total_amt" style="font-weight: bold;"
-                                                    class="text-primary"></span>
-                                            </label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="form-label">
-                                                Running Bal : ₱ <span id="header_running_balance"
-                                                    style="font-weight: bold;" class="text-danger"></span>
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="form-label">
-                                                Date Closed : <span id="header_date_completed"
-                                                    style="font-weight: bold;" class="text-secondary"></span>
-                                            </label>
-                                        </div>
-                                        <div style="display: flex; align-items: center; gap: 5px;">
-                                            <!-- <select id="header_date_arr" class="form-select form-select-sm me-2"
-                                                style="cursor:pointer; width: 200px; height: 30px">
-                                            </select> -->
-
-                                            <div class="dropdown" style="width: 167px;">
-                                                <button
-                                                    class="btn btn-sm btn-outline-secondary dropdown-toggle w-100 text-start"
-                                                    type="button" id="dateDropdownBtn" data-bs-toggle="dropdown"
-                                                    aria-expanded="false" style="height: 30px;">
-                                                    Select Date Range
-                                                </button>
-                                                <ul class="dropdown-menu" id="header_date_arr"
-                                                    style="max-height: 200px; overflow-y: auto; z-index: 9999;">
-                                                    <!-- Options will be appended here -->
-                                                </ul>
-                                            </div>
-
-                                            <button class="btn btn-sm btn-success" id="editLoanDetails">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-                                            <button class="btn btn-sm btn-danger" id="cancelEdit" style="display:none;">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="table-data">
-                            <div class="order pt-0 pb-0" style="max-height: 400px; overflow-y: auto; color:">
-                                <table id="payment_table" class="table pt-0 pb-0 mt-0 mb-0 table-bordered">
-                                    <thead class="sticky-top">
-                                        <tr>
-                                            <th class="text-center" style="width:10%; color:var(--dark);">NO.#</th>
-                                            <th class="text-center" style="width:30%; color:var(--dark);">DAY</th>
-                                            <th class="text-center" style="width:30%; color:var(--dark);">PAYMENT</th>
-                                            <th class="text-center" style="width:30%; color:var(--dark);">ACTION</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-
-                            </div>
+                    <div class="px-3 pb-3">
+                        <div class="table-responsive"
+                            style="max-height: 365px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 8px;">
+                            <table id="payment_table" class="table table-sm table-hover mb-0">
+                                <thead class="table-light sticky-top"
+                                    style="background-color: #f8f9fa; height:40px; vertical-align: middle;">
+                                    <tr>
+                                        <th class="text-center"
+                                            style="width:10%; background-color:var(--light-grey); color:var(--dark); font-weight: bold;">
+                                            #
+                                        </th>
+                                        <th class="text-center"
+                                            style="width:30%; background-color:var(--light-grey); color:var(--dark); font-weight: bold;">
+                                            DATE</th>
+                                        <th class="text-center"
+                                            style="width:30%; background-color:var(--light-grey); color:var(--dark); font-weight: bold;">
+                                            PAYMENT</th>
+                                        <th class="text-center"
+                                            style="width:30%; background-color:var(--light-grey); color:var(--dark); font-weight: bold;">
+                                            ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="paymentTableBody">
+                                    <tr>
+                                        <td colspan="4" class="text-center py-4 text-muted">
+                                            <i class="fas fa-inbox fa-2x mb-2"></i><br>
+                                            No payment records found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
 
-                        <div class="modal-footer d-flex justify-content-between align-items-center">
-                            <div class="text-end" style="width:610px">
-                                TOTAL PAYMENT : ₱ <span class="text-primary" id="total_payment"
-                                    style="font-weight: bold; "></span>
+                        <div class="d-flex justify-content-between align-items-center w-100 pt-3">
+                            <div style="width: 50px;"></div>
+
+                            <div class="text-center">
+                                <span class="text-muted me-2">Total Payments:</span>
+                                <span class="fw-bold text-primary fs-5">₱ <span id="total_payment">0.00</span></span>
                             </div>
 
                             <div>
-                                <button type="button" id="addNewLoan" class="btn btn-primary me-1"
+                                <button type="button" id="addNewLoan" class="btn btn-primary me-2"
                                     onclick="openAddNewLoanModal()">
-                                    Add New
+                                    <i class="fas fa-plus me-1"></i> New Loan
                                 </button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                    Close
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                                    <i class="fas fa-times me-1"></i> Close
                                 </button>
                             </div>
                         </div>
                     </div>
+
+                    <input type="hidden" id="header_id">
+                    <input type="hidden" id="header_loan_id">
                 </div>
             </div>
         </div>
@@ -481,42 +643,134 @@
         <!-- ADD LOAN SAME CLIENT -->
         <div class="modal fade" id="addLoanSameClient" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
             data-bs-keyboard="false">
-            <div class="modal-dialog" style="margin-top:10px">
+            <div class="modal-dialog" style="max-width:600px; margin-top:10px">
                 <div class="modal-content">
                     <div class="modal-header bg-light border-bottom">
-                        <h5 class="modal-title">Loan Details</h5>
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas fa-hand-holding-usd me-2 text-success"></i>
+                            New Loan for Existing Client
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <div class="modal-body">
-                        <div class="row g-2">
-                            <div class="col-4">
-                                <label>Capital Amt</label>
-                                <input id="add_capital_amt" type="number" class="form-control" />
-                                <input id="new_type" type="hidden" />
+                    <div class="modal-body pb-0">
+                        <div class="container p-0">
+                            <!-- Loan Details Card -->
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div class="card-header bg-white border-0">
+                                    <h6 class="fw-bold mb-0">
+                                        <i class="fas fa-calculator me-2 text-success"></i>
+                                        Loan Details
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <!-- Capital Amount -->
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-coins me-1"></i> CAPITAL AMOUNT
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-0 fw-bold">₱</span>
+                                                <input id="add_capital_amt" type="number"
+                                                    class="form-control form-control-lg" placeholder="0.00" min="0"
+                                                    step="0.01" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Interest Rate -->
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-percent me-1"></i> INTEREST RATE
+                                            </label>
+                                            <div class="input-group">
+                                                <input id="add_interest" type="number"
+                                                    class="form-control form-control-lg" value="15" min="0"
+                                                    step="0.1" />
+                                                <span class="input-group-text bg-light border-0">%</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Added Amount (Auto-calculated) -->
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-plus-circle me-1"></i> ADDED AMOUNT
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-0 fw-bold">₱</span>
+                                                <input id="add_added_amt" type="number"
+                                                    class="form-control form-control-lg" />
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Total Amount -->
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-calculator me-1"></i> TOTAL AMOUNT
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-0 fw-bold">₱</span>
+                                                <input id="add_total_amt" type="text"
+                                                    class="form-control form-control-lg fw-bold text-success" readonly
+                                                    style="background-color: #f8f9fa;" />
+                                            </div>
+                                            <small class="text-muted">Auto-calculated</small>
+                                        </div>
+
+                                        <!-- Start Date -->
+                                        <div class="col-md-12">
+                                            <label class="form-label fw-bold text-muted small mb-2">
+                                                <i class="fas fa-calendar-alt me-1"></i> NEW START DATE
+                                            </label>
+                                            <input id="add_start_date" type="date" class="form-control form-control-lg"
+                                                value="<?= date('Y-m-d') ?>" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Amount Selector -->
+                                    <div class="mt-4">
+                                        <label class="form-label fw-bold text-muted small mb-2">
+                                            <i class="fas fa-bolt me-1"></i> QUICK SELECT AMOUNT
+                                        </label>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <button type="button"
+                                                class="btn btn-outline-success btn-sm quick-loan-amount"
+                                                data-amount="1000">₱1,000</button>
+                                            <button type="button"
+                                                class="btn btn-outline-success btn-sm quick-loan-amount"
+                                                data-amount="2000">₱2,000</button>
+                                            <button type="button"
+                                                class="btn btn-outline-success btn-sm quick-loan-amount"
+                                                data-amount="3000">₱3,000</button>
+                                            <button type="button"
+                                                class="btn btn-outline-success btn-sm quick-loan-amount"
+                                                data-amount="5000">₱5,000</button>
+                                            <button type="button"
+                                                class="btn btn-outline-success btn-sm quick-loan-amount"
+                                                data-amount="10000">₱10,000</button>
+                                            <button type="button"
+                                                class="btn btn-outline-success btn-sm quick-loan-amount"
+                                                data-amount="20000">₱20,000</button>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <label>Interest (%)</label>
-                                <input id="add_interest" type="number" class="form-control" value="15" />
-                            </div>
-                            <div class="col-4">
-                                <label>Added Amt</label>
-                                <input id="add_added_amt" type="number" class="form-control" />
-                            </div>
-                            <div class="col-6">
-                                <label>Total Amt</label>
-                                <input id="add_total_amt" type="number" class="form-control" />
-                            </div>
-                            <div class="col-6">
-                                <label>New Start Date</label>
-                                <input id="add_start_date" type="date" class="form-control" />
-                            </div>
+
+                            <!-- Hidden Fields -->
+                            <input id="new_type" type="hidden" />
+                            <input id="client_id" type="hidden" />
                         </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="addLoanBtn">Continue</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <div class="modal-footer border-0 pt-0">
+                        <button type="button" class="btn btn-success" id="addLoanBtn">
+                            <i class="fas fa-check-circle me-1"></i> Process Loan
+                        </button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-1"></i> Cancel
+                        </button>
                     </div>
                 </div>
             </div>
@@ -525,39 +779,71 @@
 
         <!-- BULK PAYMENT -->
         <div class="modal fade" id="bulk_payment_modal" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog" style="width:600px; margin-top: 10px;">
+            <div class="modal-dialog modal-lg" style="max-width: 600px; margin-top: 10px;">
                 <div class="modal-content">
-
+                    <!-- Header -->
                     <div class="modal-header bg-light border-bottom">
-                        <h5 class="modal-title fw-bold">Bulk Payment For - <span id="bulk_date"
-                                style="font-weight: bold;"></span></h5>
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas fa-money-bill-wave me-2 text-success"></i>
+                            Bulk Payment For: <span id="bulk_date" class="text-success ms-1"></span>
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <div class="modal-body">
-
-                        <div class="table-responsive" style="max-height: 580px; overflow-y: auto">
-                            <table id="bulk_payment_table" class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <!-- Headers will be dynamically generated -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Rows will be dynamically generated -->
-                                </tbody>
-                                <tfoot>
-                                    <!-- Footer row for totals will be dynamically generated -->
-                                </tfoot>
-                            </table>
+                    <!-- Body -->
+                    <div class="modal-body p-3">
+                        <!-- Summary Card -->
+                        <div class="card border-0 shadow-sm rounded-3 mb-3">
+                            <div class="card-body p-3 pt-0">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="text-center p-2 bg-light rounded-3">
+                                            <small class="text-muted d-block">Total Clients</small>
+                                            <span class="fw-bold fs-5" id="total_clients_count">0</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-center p-2 bg-light rounded-3">
+                                            <small class="text-muted d-block">Total Payments</small>
+                                            <span class="fw-bold fs-5 text-success" id="total_payments_sum">₱0.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="row mt-3">
+                        <!-- Payment Table -->
+                        <div class="card border-0 shadow-sm rounded-3">
+                            <div class="card-header bg-white border-0 pt-3 px-3">
+                                <h6 class="fw-bold mb-0">
+                                    <i class="fas fa-list me-2 text-success"></i>
+                                    Payment Entries
+                                </h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive" style="max-height: 444px; overflow-y: auto;">
+                                    <table id="bulk_payment_table" class="table table-sm table-hover mb-0">
+                                        <thead class="table-light sticky-top" style="background-color: #f8f9fa;">
+                                            <!-- Headers will be dynamically generated -->
+                                        </thead>
+                                        <tbody id="bulk_payment_body">
+                                            <!-- Rows will be dynamically generated -->
+                                        </tbody>
+                                        <tfoot class="table-light">
+                                            <!-- Footer row for totals will be dynamically generated -->
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="d-flex justify-content-end">
-                                <button type="button" id="save_bulk_payments" name="submit"
-                                    class="btn btn-success">Save</button>
-                                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal"
-                                    id="closeModalBtn">Close</button>
+                                <button type="button" id="save_bulk_payments" class="btn btn-success me-2">
+                                    <i class="fas fa-save me-1"></i> Save Payments
+                                </button>
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                                    <i class="fas fa-times me-1"></i> Close
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -569,6 +855,9 @@
 
     </main>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
 
 <script>
 
@@ -616,22 +905,12 @@
                 d.startDate = startDate;
                 d.endDate = endDate;
             },
-            xhrFields: {
-                withCredentials: true
-            },
             dataType: 'json',
             error: function (xhr, status, error) {
                 console.error("AJAX request failed: " + error);
             }
         },
         columns: [
-            // {
-            //     data: null,
-            //     class: 'text-center',
-            //     render: function (data, type, row, meta) {
-            //         return meta.row + meta.settings._iDisplayStart + 1;
-            //     }
-            // },
             {
                 data: 'acc_no',
                 class: 'text-center'
@@ -695,6 +974,8 @@
         var amt = $("#capital_amt").val();
         var interest = $("#interest").val();
 
+        console.log(amt);
+
         if (!name || !amt || !interest) {
             Swal.fire({ icon: 'error', title: 'Oops...', text: 'All fields are required' });
             return;
@@ -709,7 +990,7 @@
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Show loading Swal
+
                 Swal.fire({
                     title: 'Adding client...',
                     html: 'Please wait',
@@ -725,7 +1006,7 @@
                     data: $('#client_form').serialize(),
                     dataType: 'json',
                     success: function (response) {
-                        Swal.close(); // Close loading Swal
+                        Swal.close();
                         if (response.status === "success") {
                             Swal.fire({
                                 title: 'Success!',
@@ -745,16 +1026,25 @@
                                 icon: 'error',
                                 showConfirmButton: true,
                             });
+
+                            return;
                         }
-                    },
-                    error: function (err) {
-                        Swal.close(); // Close loading Swal
-                        console.log(err);
-                        Swal.fire({ icon: 'error', title: 'Server Error', text: 'Check console for details' });
                     }
                 });
             }
         });
+    });
+
+    $('.quick-capital').click(function () {
+        let amount = $(this).data('amount');
+        $('#capital_amt').val(amount);
+
+        // Optional: Trigger change event to update calculations
+        $('#capital_amt').trigger('input');
+
+        // Optional: Add visual feedback
+        $(this).addClass('active').siblings().removeClass('active');
+        calculateTotal();
     });
 
     $('#client_form').on('keypress', function (e) {
@@ -778,7 +1068,6 @@
     $('#capital_amt, #interest, #added_amt').on('input', calculateTotal);
 
     function openEditModal(id, acc_no, fullname, address, contact_1, contact_2, date_added) {
-        // Fill modal fields
         $('#editLoaner').modal('show');
         $('#edit_acc_no').val(acc_no);
         $('#edit_full_name').val(fullname);
@@ -787,19 +1076,18 @@
         $('#edit_contact_no_2').val(contact_2);
         $('#edit_start_date').val(date_added);
 
-        // Prevent Enter from submitting
-        $('#edit_client_form').off('keypress').on('keypress', function (e) {
+        $('#edit_client_form').on('keypress', function (e) {
             if (e.which === 13) {
                 e.preventDefault();
                 $('#update_client').trigger('click');
             }
         });
 
-        // Update client
-        $('#update_client').off('click').on('click', function (e) {
+        $("#update_client").on('click', function (e) {
             e.preventDefault();
 
-            var name = $('#edit_full_name').val();
+            var name = $("#edit_full_name").val();
+
             if (!name) {
                 Swal.fire({ icon: 'error', title: 'Oops...', text: "Can't leave full name empty" });
                 return;
@@ -815,7 +1103,7 @@
                 allowEnterKey: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Loading Swal
+
                     Swal.fire({
                         title: 'Updating client...',
                         html: 'Please wait',
@@ -840,19 +1128,13 @@
                             });
                             $('#editLoaner').modal('hide');
                             client_table.ajax.reload();
-                        },
-                        error: function (err) {
-                            Swal.close();
-                            console.log(err);
-                            Swal.fire({ icon: 'error', title: 'Server Error', text: 'Check console for details' });
                         }
                     });
                 }
             });
         });
 
-        // Delete client
-        $('#deleteBtn').off('click').on('click', function (e) {
+        $("#deleteBtn").on('click', function (e) {
             e.preventDefault();
 
             Swal.fire({
@@ -867,7 +1149,7 @@
                 allowEnterKey: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Loading Swal
+
                     Swal.fire({
                         title: 'Deleting client...',
                         html: 'Please wait',
@@ -892,16 +1174,12 @@
                             });
                             $('#editLoaner').modal('hide');
                             client_table.ajax.reload();
-                        },
-                        error: function (err) {
-                            Swal.close();
-                            console.log(err);
-                            Swal.fire({ icon: 'error', title: 'Server Error', text: 'Check console for details' });
                         }
                     });
                 }
             });
         });
+
     }
 
     function openViewModal(id, fullname, address, acc_no) {
@@ -911,8 +1189,6 @@
         $('#header_acc_no').text(acc_no);
         $('#header_name').text(fullname.replace(/\b\w/g, c => c.toUpperCase()));
         $('#header_address').text(address.replace(/\b\w/g, c => c.toUpperCase()));
-
-        $('#payment_table tbody').empty();
 
         $.ajax({
             url: "<?php echo base_url('Monitoring_cont/get_start_due_date'); ?>",
@@ -987,7 +1263,6 @@
                             Swal.showLoading();
                         }
                     });
-
                 }
             },
             error: function () {
@@ -1014,7 +1289,6 @@
             triggerLoanDetails(loanId, firstStatus);
         });
 
-        // $('#header_date_arr').off('change').on('change', function () {
         function triggerLoanDetails(loanId, firstStatus) {
             $('#header_loan_id').val(loanId)
 
@@ -1181,9 +1455,7 @@
                     $('#payment_table tbody').html(tableBody);
 
                 }
-
             });
-
         };
     }
 
@@ -1199,18 +1471,10 @@
                 $('#header_running_balance').text().replace(/,/g, '')
             );
 
-
             let input = $(this);
             let payment = input.val().trim();
             let loan_id = $('#header_loan_id').val();
-            // console.log(running_bal);
-            // console.log(payment);
-
-            // if (payment > running_bal) {
-            //     Swal.fire('Invalid', 'Payment must not exceed running balance', 'warning');
-            //     return;
-            // }
-
+          
             let correctedRunningBal = running_bal < 0 ? 0 : running_bal;
 
             console.log('Corrected running balance:', correctedRunningBal);
@@ -1229,11 +1493,6 @@
             let dd = String(parsed.getDate()).padStart(2, '0');
 
             let date = `${yyyy}-${mm}-${dd}`;
-
-            // if (!payment || isNaN(payment) || payment === "0") {
-            //     Swal.fire('Invalid', 'Please enter a valid amount', 'warning');
-            //     return;
-            // }
 
             Swal.fire({
                 title: 'Confirm Payment',
@@ -1471,6 +1730,17 @@
     function openAddNewLoanModal() {
         $('#addLoanSameClient').modal('show');
 
+
+        $('.quick-loan-amount').click(function () {
+            let amount = $(this).data('amount');
+            $('#add_capital_amt').val(amount).trigger('input');
+
+            // Visual feedback
+            $(this).addClass('active').siblings().removeClass('active');
+
+            calculateNewTotal();
+        });
+
         function calculateNewTotal() {
             let capital = parseFloat($('#add_capital_amt').val()) || 0;
             let interest = parseFloat($('#add_interest').val()) || 0;
@@ -1684,7 +1954,7 @@
                         title: 'Success!',
                         text: response.message,
                         showConfirmButton: false,
-                        timer: 500,
+                        timer: 800,
                         timerProgressBar: true,
                     });
 
@@ -1702,8 +1972,6 @@
         $('#cancelEdit').off('click').on('click', function () {
             const btn = $('#editLoanDetails');
             const original = btn.data('original');
-
-            $('#dateDropdownBtn').prop('disabled', false);
 
             if (!original) return;
 
@@ -1723,7 +1991,6 @@
     });
 
     $(document).on('click', '#generate_daily', function () {
-
         const selectedDate = $('#selected_date').val();
 
         if (!selectedDate) {
@@ -1731,7 +1998,6 @@
             return;
         }
 
-        // Show loading Swal
         Swal.fire({
             title: 'Generating daily report...',
             html: 'Please wait',
@@ -1749,8 +2015,7 @@
                 responseType: 'blob' // Handle binary response
             },
             success: function (blob, status, xhr) {
-                Swal.close(); // Close loading Swal
-
+                Swal.close();
                 // Get filename from headers
                 var filename = 'Daily_Report_' + selectedDate + '.xlsx';
                 var disposition = xhr.getResponseHeader('Content-Disposition');
@@ -1769,15 +2034,14 @@
                 a.click();
                 window.URL.revokeObjectURL(url);
 
-                Swal.fire('Success!', 'Report downloaded successfully.', 'success');
+                Swal.fire('Success!', 'Report downloaded to your computer.', 'success');
             },
             error: function () {
-                Swal.close(); // Close loading Swal
+                Swal.close();
                 Swal.fire('Error', 'Failed to generate report.', 'error');
             }
         });
     });
-
 
     $(document).on('click', '#generate_weekly', function () {
         const selectedDate = $('#selected_date').val();
@@ -1787,7 +2051,6 @@
             return;
         }
 
-        // Show loading Swal
         Swal.fire({
             title: 'Generating weekly report...',
             html: 'Please wait',
@@ -1805,64 +2068,7 @@
                 responseType: 'blob' // Handle binary response
             },
             success: function (blob, status, xhr) {
-                Swal.close(); // Close loading Swal
-
-                // Get filename from headers
-                var filename = 'Weekly_Report_' + selectedDate + '.xlsx';
-                var disposition = xhr.getResponseHeader('Content-Disposition');
-                if (disposition && disposition.indexOf('attachment') !== -1) {
-                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                    var matches = filenameRegex.exec(disposition);
-                    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-                }
-
-                // Create download link
-                var url = window.URL.createObjectURL(blob);
-                var a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-
-                Swal.fire('Success!', 'Report downloaded successfully.', 'success');
-            },
-            error: function () {
-                Swal.close(); // Close loading Swal
-                Swal.fire('Error', 'Failed to generate report.', 'error');
-            }
-        });
-    });
-
-
-    $(document).on('click', '#generate_monthly', function () {
-        const selectedDate = $('#selected_date').val();
-
-        if (!selectedDate) {
-            Swal.fire('Error', 'Please select a valid date.', 'error');
-            return;
-        }
-
-        // Show loading Swal
-        Swal.fire({
-            title: 'Generating report...',
-            html: 'Please wait',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-
-        $.ajax({
-            url: '<?php echo site_url('Monitoring_cont/get_monthly_report'); ?>',
-            type: 'POST',
-            data: { date: selectedDate },
-            xhrFields: {
-                responseType: 'blob' // Handle binary response
-            },
-            success: function (blob, status, xhr) {
-                Swal.close(); // Close loading Swal
-
+                Swal.close();
                 // Get filename from headers
                 var filename = 'Daily_Report_' + selectedDate + '.xlsx';
                 var disposition = xhr.getResponseHeader('Content-Disposition');
@@ -1881,525 +2087,72 @@
                 a.click();
                 window.URL.revokeObjectURL(url);
 
-                Swal.fire('Success!', 'Report downloaded successfully.', 'success');
+                Swal.fire('Success!', 'Report downloaded to your computer.', 'success');
             },
             error: function () {
-                Swal.close(); // Close loading Swal
+                Swal.close();
                 Swal.fire('Error', 'Failed to generate report.', 'error');
             }
         });
     });
 
+    $(document).on('click', '#generate_monthly', function () {
+        const selectedDate = $('#selected_date').val();
+
+        if (!selectedDate) {
+            Swal.fire('Error', 'Please select a valid date.', 'error');
+            return;
+        }
+
+        Swal.fire({
+            title: 'Generating report...',
+            html: 'Please wait',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        $.ajax({
+            url: '<?php echo site_url('Monitoring_cont/get_monthly_report'); ?>',
+            type: 'POST',
+            data: { date: selectedDate },
+            xhrFields: {
+                responseType: 'blob' // Handle binary response
+            },
+            success: function (blob, status, xhr) {
+                Swal.close();
+                // Get filename from headers
+                var filename = 'Daily_Report_' + selectedDate + '.xlsx';
+                var disposition = xhr.getResponseHeader('Content-Disposition');
+                if (disposition && disposition.indexOf('attachment') !== -1) {
+                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                    var matches = filenameRegex.exec(disposition);
+                    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                }
+
+                // Create download link
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+
+                Swal.fire('Success!', 'Report downloaded to your computer.', 'success');
+            },
+            error: function () {
+                Swal.close();
+                Swal.fire('Error', 'Failed to generate report.', 'error');
+            }
+        });
+    });
 
     let bulkPaymentData = {
         selected_date: null,
         payments: []
     };
-
-    // Update the original bulk payment click handler to store the date
-    // $(document).on('click', '#bulk_payment', function () {
-    //     const date = $('#selected_date').val();
-    //     bulkPaymentData.selected_date = date;
-
-    //     console.log(date);
-    //     $('#bulk_date').text(formatDate(date));
-
-    //     $.ajax({
-    //         url: '<?php echo site_url('Monitoring_cont/get_bulk_payment'); ?>',
-    //         type: 'POST',
-    //         dataType: 'json',
-    //         data: { date: date },
-    //         success: function (response) {
-    //             console.log(response);
-    //             populateBulkPaymentTable(response);
-    //             $('#bulk_payment_modal').modal('show');
-    //         },
-    //         error: function () {
-    //             Swal.fire('Error', 'Something went wrong.', 'error');
-    //         }
-    //     });
-    // });
-
-    // function populateBulkPaymentTable(response) {
-    //     const table = $('#bulk_payment_table');
-    //     const tbody = table.find('tbody');
-    //     const thead = table.find('thead tr');
-    //     const tfoot = table.find('tfoot');
-
-    //     // Clear existing content
-    //     tbody.empty();
-    //     thead.empty();
-    //     tfoot.empty();
-
-    //     // Check if we have data
-    //     if (!response.date_columns || response.date_columns.length === 0) {
-    //         showNoDataMessage(tbody, 2);
-    //         return;
-    //     }
-
-    //     // Create table headers (with balance column)
-    //     createTableHeaders(thead, response.date_columns);
-
-    //     // Create table rows
-    //     if (response.data && response.data.length > 0) {
-    //         response.data.forEach(client => {
-    //             const row = $('<tr></tr>');
-    //             const clientId = client.id || client.client_id;
-    //             const loanId = client.loan_id;
-
-    //             row.data('client-data', {
-    //                 originalBalance: parseFloat(client.running_balance || 0),
-    //                 totalPaid: parseFloat(client.total_paid || 0),
-    //                 totalLoan: parseFloat(client.total_loan_amount || 0)
-    //             });
-
-    //             // Add client name
-    //             row.append(`<td>${client.full_name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase())
-    //                 }</td>`);
-
-    //             // Add running balance column
-    //             const runningBalance = parseFloat(client.running_balance || 0).toFixed(2);
-    //             const balanceClass = client.running_balance > 0 ? 'text-danger font-weight-bold' : 'text-success font-weight-bold';
-    //             row.append(`<td class="text-center ${balanceClass} running-balance-cell" 
-    //                     data-original-balance="${runningBalance}">
-    //                     ${runningBalance}
-    //                 </td>`);
-
-    //             let rowTotal = 0;
-
-    //             // Add payment amounts for each date
-    //             response.date_columns.forEach(date => {
-    //                 const amount = client.payments && client.payments[date] ? client.payments[date] : 0;
-    //                 const numAmount = parseFloat(amount);
-    //                 rowTotal += numAmount;
-
-    //                 // Create cell - input field only if amount is 0
-    //                 if (numAmount === 0) {
-    //                     // Empty cell - make it editable
-    //                     row.append(`
-    //                     <td class="text-center editable-cell" data-amount="0">
-    //                         <input type="number" 
-    //                             class="form-control form-control-sm bulk-payment-input text-center" 
-    //                             value="" 
-    //                             placeholder="" 
-    //                             data-client-id="${clientId}" 
-    //                             data-loan-id="${loanId}" 
-    //                             data-date="${date}"
-    //                             data-original-amount="0"
-    //                             step="0.01" 
-    //                             min="0" 
-    //                             style="width: 60px; height:margin: 0 auto; padding: 2px 5px; 
-    //                                     border: none; border-bottom: 1px solid #ccc; 
-    //                                     border-radius: 0; background: transparent;">
-    //                     </td>
-    //                 `);
-    //                 } else {
-    //                     // Existing amount - show as plain text with data attributes
-    //                     const formattedAmount = numAmount.toFixed(2);
-    //                     row.append(`
-    //                     <td class="text-center text-success font-weight-bold" 
-    //                         title="${date} - Amount: ${formattedAmount}"
-    //                         data-amount="${numAmount}"
-    //                         data-client-id="${clientId}" 
-    //                         data-loan-id="${loanId}" 
-    //                         data-date="${date}">
-    //                         ${formattedAmount}
-    //                     </td>
-    //                 `);
-    //                 }
-    //             });
-
-    //             // Add total column
-    //             row.append(`<td class="text-center font-weight-bold row-total">${rowTotal.toFixed(2)}</td>`);
-
-    //             tbody.append(row);
-    //         });
-
-    //         // Now create the footer for column totals
-    //         createFooterTotals(response);
-
-    //         // Initialize all totals
-    //         calculateAllTotals();
-
-    //     } else {
-    //         showNoDataMessage(tbody, response.date_columns.length + 3); // +3 for name, balance, and total columns
-    //     }
-    // }
-
-    // // Create headers function (you should already have this)
-    // function createTableHeaders(thead, dateColumns) {
-    //     thead.append('<th style="width:20%; color:#000; font-size:13px">FULL NAME</th>');
-
-    //     thead.append('<th style="width:10%; color:#000; font-size:13px" class="text-center">RUNNING BAL.</th>');
-
-    //     let previousDate = null;
-    //     dateColumns.forEach(date => {
-    //         const formattedDate = formatSmartDate(date, previousDate);
-    //         previousDate = date;
-    //         thead.append(`<th class="text-center" style="color:#000;  font-size:13px" title="${date}">${formattedDate}</th>`);
-    //     });
-
-    //     thead.append('<th class="text-center" style="color:#000; width:15%; font-size:13px">TOTAL</th>');
-    // }
-
-    // // Add this function to create footer totals
-    // function createFooterTotals(response) {
-    //     const tfoot = $('#bulk_payment_table tfoot');
-    //     tfoot.empty();
-
-    //     if (!response.data || response.data.length === 0) {
-    //         return;
-    //     }
-
-    //     const footerRow = $('<tr class="font-weight-bold"></tr>');
-
-    //     // Add TOTAL label
-    //     footerRow.append('<td>TOTAL</td>');
-
-    //     // Calculate running balance total from response data
-    //     let runningBalanceTotal = 0;
-    //     let columnTotals = new Array(response.date_columns.length).fill(0);
-    //     let grandTotal = 0;
-
-    //     response.data.forEach(client => {
-    //         // Add client's running balance
-    //         runningBalanceTotal += parseFloat(client.running_balance || 0);
-
-    //         let clientTotal = 0;
-    //         response.date_columns.forEach((date, index) => {
-    //             const amount = client.payments && client.payments[date] ? client.payments[date] : 0;
-    //             columnTotals[index] += parseFloat(amount);
-    //             clientTotal += parseFloat(amount);
-    //         });
-    //         grandTotal += clientTotal;
-    //     });
-
-    //     // Add running balance total cell
-    //     footerRow.append(`<td class="text-center">${runningBalanceTotal.toFixed(2)}</td>`);
-
-    //     // Add column totals to footer
-    //     columnTotals.forEach(total => {
-    //         footerRow.append(`<td class="text-center">${total.toFixed(2)}</td>`);
-    //     });
-
-    //     // Add grand total
-    //     footerRow.append(`<td class="text-center">${grandTotal.toFixed(2)}</td>`);
-
-    //     tfoot.append(footerRow);
-    // }
-
-    // // Helper function to calculate all totals
-    // function calculateAllTotals() {
-    //     const table = $('#bulk_payment_table');
-    //     const tbody = table.find('tbody');
-
-    //     let runningBalanceTotal = 0;
-    //     let rowTotalsSum = 0;
-
-    //     // Calculate all row totals
-    //     tbody.find('tr').each(function () {
-    //         const row = $(this);
-    //         let rowTotal = 0;
-
-    //         // Get all date cells (skip: name(1), balance(2), total(last))
-    //         const dateCells = row.find('td').slice(2, -1);
-
-    //         dateCells.each(function () {
-    //             const cell = $(this);
-    //             const input = cell.find('.bulk-payment-input');
-
-    //             if (input.length > 0) {
-    //                 rowTotal += parseFloat(input.val()) || 0;
-    //             } else {
-    //                 // Get amount from data attribute or text
-    //                 const amount = parseFloat(cell.data('amount')) || parseFloat(cell.text().trim()) || 0;
-    //                 rowTotal += amount;
-    //             }
-    //         });
-
-    //         row.find('.row-total').text(rowTotal.toFixed(2));
-    //         rowTotalsSum += rowTotal;
-
-    //         // Calculate running balance for this row
-    //         const runningBalanceCell = row.find('.running-balance-cell');
-    //         const runningBalance = parseFloat(runningBalanceCell.text().trim()) || 0;
-    //         runningBalanceTotal += runningBalance;
-    //     });
-
-    //     // Update the running balance total in footer
-    //     updateRunningBalanceTotal(runningBalanceTotal);
-
-    //     // Calculate column totals
-    //     updateColumnTotals();
-    // }
-
-    // // New function to update running balance total
-    // function updateRunningBalanceTotal(total) {
-    //     const table = $('#bulk_payment_table');
-    //     const footerRow = table.find('tfoot tr');
-
-    //     if (footerRow.length > 0) {
-    //         // Update the second cell (index 1) which is for running balance total
-    //         footerRow.find('td:nth-child(2)').text(total.toFixed(2));
-    //     }
-    // }
-
-    // function updateColumnTotals() {
-    //     const table = $('#bulk_payment_table');
-    //     const columns = table.find('thead tr th').length - 3; // Minus name, balance, and total columns
-
-    //     // Calculate running balance total from all rows
-    //     let runningBalanceTotal = 0;
-    //     table.find('tbody tr').each(function () {
-    //         const runningBalanceCell = $(this).find('.running-balance-cell');
-    //         const runningBalance = parseFloat(runningBalanceCell.text().trim()) || 0;
-    //         runningBalanceTotal += runningBalance;
-    //     });
-
-    //     // Update running balance total in footer
-    //     table.find('tfoot tr td:nth-child(2)').text(runningBalanceTotal.toFixed(2));
-
-    //     // Update each date column total
-    //     for (let i = 0; i < columns; i++) {
-    //         let columnTotal = 0;
-    //         const cells = table.find(`tbody tr td:nth-child(${i + 3})`); // +3 because: 1=name, 2=balance, 3=first date column
-
-    //         cells.each(function () {
-    //             const cell = $(this);
-    //             const input = cell.find('.bulk-payment-input');
-
-    //             if (input.length > 0) {
-    //                 columnTotal += parseFloat(input.val()) || 0;
-    //             } else {
-    //                 columnTotal += parseFloat(cell.data('amount')) || parseFloat(cell.text().trim()) || 0;
-    //             }
-    //         });
-
-    //         table.find(`tfoot tr td:nth-child(${i + 3})`).text(columnTotal.toFixed(2));
-    //     }
-
-    //     updateGrandTotal();
-    // }
-
-    // function updateGrandTotal() {
-    //     const table = $('#bulk_payment_table');
-    //     let grandTotal = 0;
-
-    //     table.find('tbody tr .row-total').each(function () {
-    //         grandTotal += parseFloat($(this).text()) || 0;
-    //     });
-
-    //     table.find('tfoot tr td:last-child').text(grandTotal.toFixed(2));
-    // }
-
-    // $(document).on('input', '.bulk-payment-input', function () {
-    //     const row = $(this).closest('tr');
-    //     const input = $(this);
-    //     const cell = input.closest('td');
-    //     const clientId = input.data('client-id');
-    //     const date = input.data('date');
-
-    //     // Update the data-amount attribute when input changes
-    //     const newValue = parseFloat(input.val()) || 0;
-    //     const oldValue = parseFloat(cell.data('amount')) || 0;
-    //     cell.data('amount', newValue);
-
-    //     // Calculate the change in payment amount
-    //     const amountChange = newValue - oldValue;
-
-    //     // Update row total
-    //     let rowTotal = 0;
-    //     const dateCells = row.find('td').slice(2, -1);
-
-    //     dateCells.each(function () {
-    //         const dateCell = $(this);
-    //         const dateInput = dateCell.find('.bulk-payment-input');
-
-    //         if (dateInput.length > 0) {
-    //             rowTotal += parseFloat(dateInput.val()) || 0;
-    //         } else {
-    //             rowTotal += parseFloat(dateCell.data('amount')) || parseFloat(dateCell.text().trim()) || 0;
-    //         }
-    //     });
-
-    //     row.find('.row-total').text(rowTotal.toFixed(2));
-
-    //     // UPDATE RUNNING BALANCE
-    //     updateRunningBalance(row, amountChange);
-
-    //     // Update column totals
-    //     updateColumnTotals();
-    // });
-
-    // function updateRunningBalance(row, amountChange) {
-    //     const runningBalanceCell = row.find('.running-balance-cell');
-    //     const currentBalance = parseFloat(runningBalanceCell.text().trim()) || 0;
-
-    //     // Calculate new balance (subtract the payment increase)
-    //     const newBalance = currentBalance - amountChange;
-
-    //     // Update the display
-    //     runningBalanceCell.text(newBalance.toFixed(2));
-
-    //     // Update the color based on balance
-    //     if (newBalance > 0) {
-    //         runningBalanceCell.removeClass('text-success').addClass('text-danger font-weight-bold');
-    //     } else {
-    //         runningBalanceCell.removeClass('text-danger').addClass('text-success font-weight-bold');
-    //     }
-
-    //     // Update the data attribute
-    //     runningBalanceCell.data('current-balance', newBalance);
-    // }
-
-    // // Save button click handler
-    // $(document).on('click', '#save_bulk_payments', function () {
-    //     saveBulkPayments();
-    // });
-
-    // function saveBulkPayments() {
-    //     const payments = [];
-    //     const updatedBalances = [];
-    //     const table = $('#bulk_payment_table');
-
-    //     // Collect payments and balances first
-    //     table.find('tbody tr').each(function () {
-    //         const row = $(this);
-    //         const runningBalanceCell = row.find('.running-balance-cell');
-    //         const runningBalance = parseFloat(runningBalanceCell.text().trim()) || 0;
-    //         const firstInput = row.find('.bulk-payment-input').first();
-    //         const clientId = firstInput.data('client-id');
-    //         const loanId = firstInput.data('loan-id');
-
-    //         if (clientId) {
-    //             updatedBalances.push({
-    //                 client_id: clientId,
-    //                 loan_id: loanId,
-    //                 running_balance: runningBalance
-    //             });
-    //         }
-
-    //         row.find('.bulk-payment-input').each(function () {
-    //             const input = $(this);
-    //             const value = parseFloat(input.val()) || 0;
-
-    //             if (value > 0) {
-    //                 payments.push({
-    //                     client_id: input.data('client-id'),
-    //                     loan_id: input.data('loan-id'),
-    //                     date: input.data('date'),
-    //                     amount: value
-    //                 });
-    //             }
-    //         });
-    //     });
-
-    //     console.log(updatedBalances);
-
-    //     if (payments.length === 0) {
-    //         Swal.fire({
-    //             icon: 'warning',
-    //             title: 'No Payments',
-    //             text: 'No payments to save. Please enter some amounts first.'
-    //         });
-    //         return;
-    //     }
-
-    //     // Calculate total amount
-    //     const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
-    //     const numberOfPayments = payments.length;
-    //     const numberOfClients = new Set(payments.map(p => p.client_id)).size;
-
-    //     // Show confirmation dialog
-    //     Swal.fire({
-    //         title: 'Confirm Save',
-    //         html: `
-    //         <div class="text-left">
-    //             <p>You are about to save:</p>
-    //             <ul>
-    //                 <li><strong>${numberOfPayments}</strong> payment(s)</li>
-    //                 <li><strong>${numberOfClients}</strong> client(s)</li>
-    //                 <li><strong>₱${totalAmount.toFixed(2)}</strong> total amount</li>
-    //             </ul>
-    //             <p>Are you sure you want to proceed?</p>
-    //         </div>
-    //     `,
-    //         icon: 'question',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, save payments!',
-    //         cancelButtonText: 'Cancel'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             proceedWithSave(payments, updatedBalances, totalAmount);
-    //         }
-    //     });
-    // }
-
-    // function proceedWithSave(payments, updatedBalances, totalAmount) {
-    //     // Show loading
-    //     const saveButton = $('#save_bulk_payments');
-    //     const originalText = saveButton.html();
-    //     saveButton.html('<i class="fas fa-spinner fa-spin"></i> Saving...');
-    //     saveButton.prop('disabled', true);
-
-    //     // Prepare data
-    //     const data = {
-    //         selected_date: bulkPaymentData.selected_date,
-    //         payments: payments,
-    //         updated_balances: updatedBalances
-    //     };
-
-    //     // Send to server
-    //     $.ajax({
-    //         url: '<?php echo site_url('Monitoring_cont/save_bulk_payments'); ?>',
-    //         type: 'POST',
-    //         dataType: 'json',
-    //         data: JSON.stringify(data),
-    //         contentType: 'application/json',
-    //         success: function (response) {
-    //             console.log('Save response:', response);
-
-    //             if (response.success) {
-    //                 Swal.fire({
-    //                     icon: 'success',
-    //                     title: 'Saved Successfully!',
-    //                     html: `
-    //                     <div class="text-left">
-    //                         <p>${response.message}</p>
-    //                         <ul>
-    //                             <li><strong>${response.saved_count || payments.length}</strong> payments saved</li>
-    //                             <li><strong>₱${totalAmount.toFixed(2)}</strong> total amount</li>
-    //                             ${response.failed_count ? `<li><strong>${response.failed_count}</strong> failed</li>` : ''}
-    //                         </ul>
-    //                     </div>
-    //                 `,
-    //                     timer: 1000,
-    //                     timerProgressBar: true,
-    //                     showConfirmButton: false
-    //                 }).then(() => {
-    //                     $('#bulk_payment_modal').modal('hide');
-    //                     client_table.ajax.reload();
-
-    //                 });
-    //             } else {
-    //                 Swal.fire('Error', response.message || 'Failed to save payments.', 'error');
-    //             }
-    //         },
-    //         error: function (xhr, status, error) {
-    //             console.error('Save error:', error);
-    //             console.error('Status:', status);
-    //             console.error('Response:', xhr.responseText);
-    //             Swal.fire('Error', 'Something went wrong while saving payments.', 'error');
-    //         },
-    //         complete: function () {
-    //             // Restore button
-    //             saveButton.html(originalText);
-    //             saveButton.prop('disabled', false);
-    //         }
-    //     });
-    // }
 
     $(document).on('click', '#bulk_payment', function () {
         const date = $('#selected_date').val();
@@ -2430,7 +2183,18 @@
             success: function (response) {
                 Swal.close();
                 console.log(response);
+
+                let entryCount = response.data.length;
+
+                let totalAmt = response.data.reduce((sum, item) => sum + (parseFloat(item.amt) || 0), 0);
+
                 populateBulkPaymentTable(response, date);
+                $('#total_clients_count').text(entryCount);
+                $('#total_payments_sum').text(totalAmt.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }));
+
                 $('#bulk_payment_modal').modal('show');
             },
             error: function () {
@@ -2440,61 +2204,58 @@
         });
     });
 
-
     function populateBulkPaymentTable(response, date) {
         const table = $('#bulk_payment_table');
+        const thead = table.find('thead');
         const tbody = table.find('tbody');
-        const thead = table.find('thead tr');
 
-        // Clear existing content
         tbody.empty();
         thead.empty();
 
-        // Create table headers
-        thead.append('<th style="width:20%; color:var(--dark); background-color:var(--light-grey); font-size:13px" class="text-center  align-middle">ACC NO</th>');
-        thead.append('<th style="width:65%; color:var(--dark); background-color:var(--light-grey); font-size:13px" class="align-middle">FULL NAME</th>');
-        thead.append('<th style="width:15%; color:var(--dark); background-color:var(--light-grey); font-size:13px; height:40px" class="text-center align-middle">AMOUNT</th>');
+        const headerRow = $('<tr></tr>');
+        headerRow.append('<th style="width:20%; background-color:var(--light-grey); font-size:13px; height:40px; color:var(--dark); font-weight: bold;" class="text-center align-middle">ACC NO</th>');
+        headerRow.append('<th style="width:65%; background-color:var(--light-grey); font-size:13px; color:var(--dark); font-weight: bold" class="align-middle">FULL NAME</th>');
+        headerRow.append('<th style="width:15%; background-color:var(--light-grey); font-size:13px; color:var(--dark); font-weight: bold" class="text-center align-middle">AMOUNT</th>');
+        thead.append(headerRow);
 
-        // Check if we have data
         if (!response.data || response.data.length === 0) {
-            tbody.append(`
-            <tr>
-                <td colspan="3" class="text-center">No clients found for the selected date</td>
-            </tr>
-        `);
+            const emptyRow = $('<tr></tr>');
+            emptyRow.append('<td colspan="3" class="text-center py-4">No clients found for the selected date</td>');
+            tbody.append(emptyRow);
             return;
         }
 
-        // Create table rows
         response.data.forEach(client => {
             const row = $('<tr></tr>');
 
-            // Add account number
-            row.append(`<td class="text-center">${client.acc_no || 'N/A'}</td>`);
+            const accNoCell = $('<td class="text-center align-middle"></td>').text(client.acc_no || 'N/A');
+            row.append(accNoCell);
 
-            // Add client name (proper case)
-            const formattedName = client.full_name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-            row.append(`<td>${formattedName}</td>`);
+            const formattedName = client.full_name ?
+                client.full_name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase()) : 'N/A';
+            const nameCell = $('<td class="align-middle"></td>').text(formattedName);
+            row.append(nameCell);
 
-            // Add BLANK amount column for input
-            const hasPayment = client.amt && client.amt > 0;
+            const hasPayment = client.amt && parseFloat(client.amt) > 0;
             const inputValue = hasPayment ? client.amt : '';
 
-            row.append(`
-                <td class="text-center">
-                    <input ${hasPayment ? 'type="text"' : 'type="number"'} 
-                        class="form-control form-control-sm bulk-payment-input text-center ${hasPayment ? 'bg-light text-success font-weight-bold' : ''}"   
-                        value="${inputValue}" 
-                        data-client-id="${client.client_id}" 
-                        data-loan-id="${client.loan_id}" 
-                        data-date="${date}"
-                        ${hasPayment ? 'readonly' : ''}
-                        ${hasPayment ? 'title="Payment already recorded"' : ''}
-                        step="0.01" 
-                        min="0" 
-                        style="width: 100px; margin: 0 auto;">
-                </td>
+            const amountCell = $('<td class="text-center align-middle"></td>');
+            const input = $(`
+            <input type="${hasPayment ? 'text' : 'number'}" 
+                    class="form-control form-control-sm bulk-payment-input text-center ${hasPayment ? 'bg-light text-success fw-bold' : ''}"   
+                    value="${inputValue}" 
+                    data-client-id="${client.client_id}" 
+                    data-loan-id="${client.loan_id}" 
+                    data-date="${date}"
+                    ${hasPayment ? 'readonly' : ''}
+                    ${hasPayment ? 'title="Payment already recorded"' : ''}
+                    step="0.01" 
+                    min="0" 
+                    style="width: 100px; margin: 0 auto;">
             `);
+
+            amountCell.append(input);
+            row.append(amountCell);
 
             tbody.append(row);
         });
@@ -2683,59 +2444,4 @@
         viewLoanerEl.classList.remove('modal-dimmed');
     });
 
-    // let clickAttempts = 0;
-
-    // document.getElementById('generate_weekly').addEventListener('mouseenter', function (e) {
-    //     const button = e.target;
-    //     clickAttempts++;
-
-    //     // Make it harder to catch over time
-    //     const difficulty = Math.min(1.5, 1 + (clickAttempts * 0.1));
-
-    //     const maxX = window.innerWidth - button.offsetWidth;
-    //     const maxY = window.innerHeight - button.offsetHeight;
-
-    //     // Teleport to random position
-    //     const randomX = Math.random() * maxX;
-    //     const randomY = Math.random() * maxY;
-
-    //     button.style.position = 'fixed';
-    //     button.style.left = `${randomX}px`;
-    //     button.style.top = `${randomY}px`;
-    //     button.style.zIndex = '9999';
-    //     button.style.transition = `all ${0.3 / difficulty}s ease-out`;
-
-    //     // Show taunting message
-    //     const messages = [
-    //         "Can't catch me!",
-    //         "Try again!",
-    //         "Almost got it!",
-    //         "Too slow!",
-    //         "Nope!",
-    //         "Missed me!"
-    //     ];
-
-    //     if (clickAttempts > 3) {
-    //         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-    //         button.innerHTML = `<i class="fas fa-running me-1"></i> ${randomMsg}`;
-
-    //         // Make it smaller and faster
-    //         button.style.transform = `scale(${1 / difficulty})`;
-    //     }
-    // });
-
-    // // Reset button after 5 seconds of no interaction
-    // let resetTimeout;
-    // document.getElementById('generate_weekly').addEventListener('mouseleave', function () {
-    //     clearTimeout(resetTimeout);
-    //     resetTimeout = setTimeout(() => {
-    //         const button = document.getElementById('generate_weekly');
-    //         button.innerHTML = `<i class="fas fa-download me-1"></i> Weekly Report`;
-    //         button.style.position = '';
-    //         button.style.left = '';
-    //         button.style.top = '';
-    //         button.style.transform = '';
-    //         clickAttempts = 0;
-    //     }, 5000);
-    // });
 </script>
