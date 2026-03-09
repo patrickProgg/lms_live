@@ -536,7 +536,7 @@
                                                             class="fas fa-check-circle me-1"></i> Status / <i
                                                             class="far fa-calendar-check me-1"></i> Date Completed</div>
                                                     <span class="fw-bold text-success">
-                                                        <span id="header_status"></span>
+                                                        <span id="header_status">ONGOING</span>
                                                         <span id="header_date_completed"></span>
                                                     </span>
                                                 </div>
@@ -1329,19 +1329,12 @@
                     $('#header_added_amt').text(Number(loan.added_amt).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                     $('#header_total_amt').text(Number(loan.total_amt).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                     $('#header_interest').text(loan.interest);
-                    let dateDisplay = loan.complete_date ? format(loan.complete_date) : '';
+                    $('#header_date_completed').text(
+                        loan.complete_date ? format(loan.complete_date) : ''
+                    );
 
-                    if (dateDisplay) {
-                        // If date exists, show dash, date, and checkmark
-                        $('#header_date_completed').html(`
-                            <span class="mx-1">—</span>
-                            ${dateDisplay}
-                            <i class="fas fa-check-circle ms-1" style="color: #28a745; font-size: 0.9rem;"></i>
-                        `);
-                    } else {
-                        // If no date, show nothing (empty)
-                        $('#header_date_completed').html('');
-                    }
+                    let paymentMap = {};
+
                     response.forEach(item => {
                         if (item.payment_for) {
                             paymentMap[item.payment_for] = item.amt;
