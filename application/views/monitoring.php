@@ -536,7 +536,7 @@
                                                             class="fas fa-check-circle me-1"></i> Status / <i
                                                             class="far fa-calendar-check me-1"></i> Date Completed</div>
                                                     <span class="fw-bold text-success">
-                                                        <span id="header_status">ONGOING</span>
+                                                        <span id="header_status"></span>
                                                         <span id="header_date_completed"></span>
                                                     </span>
                                                 </div>
