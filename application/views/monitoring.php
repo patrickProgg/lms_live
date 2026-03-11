@@ -1391,7 +1391,7 @@
                                         <td class="text-center">${new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                                         <td class="text-center">
                                             <input type="text"
-                                                class="form-control form-control-sm payment-input w-50 mx-auto ${paymentAmt ? 'text-success' : ''}"
+                                                class="form-control text-center form-control-sm payment-input w-50 mx-auto ${paymentAmt ? 'text-success' : ''}"
                                                 value="${formattedAmt !== 0 ? formattedAmt : ''}"
                                                 ${paymentAmt !== 0 ? 'readonly' : ''} />
                                         </td>
@@ -1419,7 +1419,7 @@
                                         <td class="text-center">${current.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                                         <td class="text-center">
                                             <input type="text"
-                                                class="form-control form-control-sm payment-input w-50 mx-auto ${paymentAmt ? 'text-success' : ''}"
+                                                class="form-control text-center form-control-sm payment-input w-50 mx-auto ${paymentAmt ? 'text-success' : ''}"
                                                 value="${formattedAmt !== 0 ? formattedAmt : ''}"
                                                 ${paymentAmt !== 0 ? 'readonly' : ''} />
                                         </td>
@@ -1452,7 +1452,7 @@
                                     <td class="text-center">${current.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                                     <td class="text-center">
                                         <input type="text"
-                                            class="form-control form-control-sm payment-input w-50 mx-auto ${paymentAmt ? 'text-success' : ''}"
+                                            class="form-control text-center form-control-sm payment-input w-50 mx-auto ${paymentAmt ? 'text-success' : ''}"
                                             value="${formattedAmt !== 0 ? formattedAmt : ''}"
                                             ${paymentAmt !== 0 ? 'readonly' : ''} />
                                     </td>
