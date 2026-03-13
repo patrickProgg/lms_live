@@ -102,8 +102,7 @@ class View_ui_cont extends CI_Controller
             ->where('c.status !=', '1')
             ->group_by('c.id')
             ->having('total_loans > 0')
-            ->having('completed_loans > 0') // This is correct - client with 2 completed SHOULD be included
-            ->limit(50); // Increase limit to ensure you get enough records
+            ->having('completed_loans > 0');
 
         $query = $this->db->get();
         $payors = $query->result_array();
