@@ -110,7 +110,7 @@ class View_ui_cont extends CI_Controller
         // Calculate performance score for each payor and sort
         foreach ($payors as &$payor) {
             // Base score from total loans (this is the primary factor)
-            $score = $payor['total_loans'] * 50; // Heavy weight on total loans
+            $score = $payor['total_loans'] * 60; // Heavy weight on total loans
 
             // Add bonus for completed loans
             $score += $payor['completed_loans'] * 20;
