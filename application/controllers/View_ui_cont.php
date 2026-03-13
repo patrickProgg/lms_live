@@ -76,45 +76,46 @@ class View_ui_cont extends CI_Controller
 
         // In your controller, after fetching the data:
         $payment_subquery = "
-            (SELECT loan_id, SUM(amt) AS total_paid
-            FROM tbl_payment 
-            WHERE payment_for BETWEEN DATE_ADD(
-                (SELECT start_date FROM tbl_loan WHERE id = tbl_payment.loan_id), 
-                INTERVAL 1 DAY
-            ) AND (
-                SELECT due_date FROM tbl_loan WHERE id = tbl_payment.loan_id
-            )
-            GROUP BY loan_id) p
-        ";
+    (SELECT loan_id, SUM(amt) AS total_paid
+    FROM tbl_payment 
+    WHERE payment_for BETWEEN DATE_ADD(
+        (SELECT start_date FROM tbl_loan WHERE id = tbl_payment.loan_id), 
+        INTERVAL 1 DAY
+    ) AND (
+        SELECT due_date FROM tbl_loan WHERE id = tbl_payment.loan_id
+    )
+    GROUP BY loan_id) p
+";
 
         $this->db->select("
-            c.full_name,
-            COUNT(DISTINCT l.id) AS total_loans,
-            SUM(CASE WHEN l.status = 'completed' THEN 1 ELSE 0 END) AS completed_loans,
-            SUM(CASE WHEN l.status = 'overdue' THEN 1 ELSE 0 END) AS overdue_loans,
-            SUM(CASE WHEN l.status = 'ongoing' THEN 1 ELSE 0 END) AS ongoing_loans,
-            COALESCE(SUM(p.total_paid), 0) AS total_paid
-        ")
+    c.full_name,
+    c.id,
+    COUNT(DISTINCT l.id) AS total_loans,
+    SUM(CASE WHEN l.status = 'completed' THEN 1 ELSE 0 END) AS completed_loans,
+    SUM(CASE WHEN l.status = 'overdue' THEN 1 ELSE 0 END) AS overdue_loans,
+    SUM(CASE WHEN l.status = 'ongoing' THEN 1 ELSE 0 END) AS ongoing_loans,
+    COALESCE(SUM(p.total_paid), 0) AS total_paid
+")
             ->from('tbl_client c')
             ->join('tbl_loan l', 'c.id = l.cl_id', 'left')
             ->join($payment_subquery, 'l.id = p.loan_id', 'left', false)
             ->where('c.status !=', '1')
             ->group_by('c.id')
             ->having('total_loans > 0')
-            ->having('completed_loans > 0')
-            ->limit(10); // Get more than needed
+            ->having('completed_loans > 0') // This is correct - client with 2 completed SHOULD be included
+            ->limit(50); // Increase limit to ensure you get enough records
 
         $query = $this->db->get();
         $payors = $query->result_array();
 
         // Calculate performance score for each payor and sort
         foreach ($payors as &$payor) {
-            // Exponential weight for total loans (makes 3 loans much higher than 2)
-            $score = pow($payor['total_loans'], 2) * 30; // 3²*30 = 270, 2²*30 = 120, 1²*30 = 30
+            // Give more weight to total loans
+            $score = $payor['total_loans'] * 100; // Simple multiplication first
 
             // Add bonuses
-            $score += $payor['completed_loans'] * 15;
-            $score += $payor['ongoing_loans'] * 25;
+            $score += $payor['completed_loans'] * 20;
+            $score += $payor['ongoing_loans'] * 30;
             $score -= $payor['overdue_loans'] * 50;
 
             $payor['performance_score'] = round($score, 2);
@@ -127,6 +128,7 @@ class View_ui_cont extends CI_Controller
 
         // Take top 5
         $data['good_payors'] = array_slice($payors, 0, 5);
+
 
         // In your dashboard() function:
         $selected_date = $this->input->get('selected_date') ?: date('Y-m-d');
