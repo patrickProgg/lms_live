@@ -109,11 +109,24 @@ class View_ui_cont extends CI_Controller
 
         // Calculate performance score for each payor and sort
         foreach ($payors as &$payor) {
-            $score = $payor['completed_loans'] * 10;
-            $score -= $payor['overdue_loans'] * 20;
+            // Base score from total loans (this is the primary factor)
+            $score = $payor['total_loans'] * 50; // Heavy weight on total loans
+
+            // Add bonus for completed loans
+            $score += $payor['completed_loans'] * 20;
+
+            // Add bonus for ongoing loans (shows active trust)
+            $score += $payor['ongoing_loans'] * 30;
+
+            // Penalty for overdue
+            $score -= $payor['overdue_loans'] * 40;
+
+            // Completion rate bonus (secondary factor)
             if ($payor['total_loans'] > 0) {
-                $score += ($payor['completed_loans'] / $payor['total_loans']) * 100;
+                $completion_rate = $payor['completed_loans'] / $payor['total_loans'];
+                $score += $completion_rate * 30;
             }
+
             $payor['performance_score'] = round($score, 2);
         }
 
