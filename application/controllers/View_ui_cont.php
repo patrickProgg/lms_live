@@ -76,26 +76,26 @@ class View_ui_cont extends CI_Controller
 
         // In your controller, after fetching the data:
         $payment_subquery = "
-    (SELECT loan_id, SUM(amt) AS total_paid
-    FROM tbl_payment 
-    WHERE payment_for BETWEEN DATE_ADD(
-        (SELECT start_date FROM tbl_loan WHERE id = tbl_payment.loan_id), 
-        INTERVAL 1 DAY
-    ) AND (
-        SELECT due_date FROM tbl_loan WHERE id = tbl_payment.loan_id
-    )
-    GROUP BY loan_id) p
-";
+            (SELECT loan_id, SUM(amt) AS total_paid
+            FROM tbl_payment 
+            WHERE payment_for BETWEEN DATE_ADD(
+                (SELECT start_date FROM tbl_loan WHERE id = tbl_payment.loan_id), 
+                INTERVAL 1 DAY
+            ) AND (
+                SELECT due_date FROM tbl_loan WHERE id = tbl_payment.loan_id
+            )
+            GROUP BY loan_id) p
+        ";
 
         $this->db->select("
-    c.full_name,
-    c.id,
-    COUNT(DISTINCT l.id) AS total_loans,
-    SUM(CASE WHEN l.status = 'completed' THEN 1 ELSE 0 END) AS completed_loans,
-    SUM(CASE WHEN l.status = 'overdue' THEN 1 ELSE 0 END) AS overdue_loans,
-    SUM(CASE WHEN l.status = 'ongoing' THEN 1 ELSE 0 END) AS ongoing_loans,
-    COALESCE(SUM(p.total_paid), 0) AS total_paid
-")
+            c.full_name,
+            c.id,
+            COUNT(DISTINCT l.id) AS total_loans,
+            SUM(CASE WHEN l.status = 'completed' THEN 1 ELSE 0 END) AS completed_loans,
+            SUM(CASE WHEN l.status = 'overdue' THEN 1 ELSE 0 END) AS overdue_loans,
+            SUM(CASE WHEN l.status = 'ongoing' THEN 1 ELSE 0 END) AS ongoing_loans,
+            COALESCE(SUM(p.total_paid), 0) AS total_paid
+        ")
             ->from('tbl_client c')
             ->join('tbl_loan l', 'c.id = l.cl_id', 'left')
             ->join($payment_subquery, 'l.id = p.loan_id', 'left', false)
@@ -123,7 +123,13 @@ class View_ui_cont extends CI_Controller
 
         // Sort by performance score (descending)
         usort($payors, function ($a, $b) {
-            return $b['performance_score'] <=> $a['performance_score'];
+            // First compare by performance score
+            if ($b['performance_score'] != $a['performance_score']) {
+                return $b['performance_score'] <=> $a['performance_score'];
+            }
+
+            // If scores are equal, compare by total_paid (higher paid first)
+            return $b['total_paid'] <=> $a['total_paid'];
         });
 
         // Take top 5
