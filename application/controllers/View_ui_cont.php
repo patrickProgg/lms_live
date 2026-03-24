@@ -294,11 +294,26 @@ class View_ui_cont extends CI_Controller
 
         // ========== LOAN STATISTICS WITH CLIENT FILTER ==========
         // Get loan status data for chart with client filter
+        // $loan_status_data = $this->db
+        //     ->select('l.status, COUNT(*) as count, SUM(l.total_amt) as total')
+        //     ->from('tbl_loan l')
+        //     ->join('tbl_client c', 'l.cl_id = c.id')
+        //     // ->where('c.status !=', '1')
+        //     ->group_by('l.status')
+        //     ->get()
+        //     ->result_array();
+
         $loan_status_data = $this->db
             ->select('l.status, COUNT(*) as count, SUM(l.total_amt) as total')
             ->from('tbl_loan l')
             ->join('tbl_client c', 'l.cl_id = c.id')
-            // ->where('c.status !=', '1')
+            ->group_start()
+            ->where('l.status !=', 'overdue')
+            ->or_group_start()
+            ->where('l.status', 'overdue')
+            ->where('l.complete_date IS NULL', null, false)
+            ->group_end()
+            ->group_end()
             ->group_by('l.status')
             ->get()
             ->result_array();
