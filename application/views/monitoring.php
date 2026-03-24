@@ -615,7 +615,7 @@
                     <div class="modal-content">
                         <div class="modal-header bg-light border-bottom">
                             <h5 class="modal-title fw-bold">
-                                <i class="fas fa-exclamation-triangle me-2 text-warning"></i>
+                                <i class="fas fa-exclamation-triangle me-2 text-danger"></i>
                                 Overdue Loan Processing
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -627,7 +627,7 @@
                                 <div class="card border-0 shadow-sm rounded-4">
                                     <div class="card-header bg-white border-0">
                                         <h6 class="fw-bold mb-0">
-                                            <i class="fas fa-calculator me-2 text-warning"></i>
+                                            <i class="fas fa-calculator me-2 text-danger"></i>
                                             Overdue Loan Details
                                         </h6>
                                     </div>
@@ -701,7 +701,7 @@
                         </div>
 
                         <div class="modal-footer border-0 pt-0">
-                            <button type="button" class="btn btn-warning" id="modalContinueBtn">
+                            <button type="button" class="btn btn-danger" id="modalContinueBtn">
                                 <i class="fas fa-check-circle me-1"></i> Continue
                             </button>
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
