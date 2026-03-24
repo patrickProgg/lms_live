@@ -312,25 +312,27 @@ class View_ui_cont extends CI_Controller
 
         $loan_status_data = $this->db
             ->select("
+        l.id,
+        l.status as original_status,
+        l.complete_date,
+        l.due_date,
         CASE 
             WHEN l.complete_date IS NOT NULL THEN 'completed'
-            WHEN l.due_date < '$today' AND l.complete_date IS NULL THEN 'overdue'
+            WHEN l.due_date < '$today' THEN 'overdue'
             ELSE COALESCE(l.status, 'active')
-        END as status,
-        COUNT(*) as count, 
-        SUM(l.total_amt) as total
+        END as calculated_status,
+        l.total_amt
     ")
             ->from('tbl_loan l')
             ->join('tbl_client c', 'l.cl_id = c.id')
-            ->where('l.complete_date IS NULL OR l.complete_date IS NOT NULL', null, false) // This ensures all records are included
-            ->group_by('status')
             ->get()
             ->result_array();
 
-        $data['loan_status_counts'] = [];
-        foreach ($loan_status_data as $row) {
-            $data['loan_status_counts'][$row['status']] = $row['count'];
-        }
+        // Debug: Print results to see what's happening
+        echo '<pre>';
+        print_r($loan_status_data);
+        echo '</pre>';
+        die();
 
         // ========== END LOAN STATISTICS ==========
 
