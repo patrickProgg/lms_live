@@ -1757,4 +1757,107 @@ class Monitoring_cont extends CI_Controller
 
         echo json_encode($response);
     }
+
+    public function add_variance()
+    {
+        $over = $this->input->post('over');
+        $short = $this->input->post('short');
+        $date = $this->input->post('date');
+
+        $varianceData = [
+            'over' => $over,
+            'short' => $short,
+            'date_added' => $date
+        ];
+
+        $inserted = $this->db->insert('tbl_variance', $varianceData);
+
+        if ($inserted) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Variance inserted successfully.'
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Failed to insert variance.'
+            ]);
+        }
+    }
+
+    public function get_variance_data()
+    {
+        $start = $this->input->post('start');
+        $length = $this->input->post('length');
+        $searchValue = trim($this->input->post('search')['value']);
+        $history = $this->input->post('history');
+
+        $order = $this->input->post('order');
+        $orderColumnIndex = isset($order[0]['column']) ? $order[0]['column'] : 0;
+        $orderDir = isset($order[0]['dir']) ? $order[0]['dir'] : 'DESC';
+
+        $columns = [
+            0 => 'date_added',
+            1 => 'over',
+            2 => 'short'
+        ];
+
+        $orderColumn = $columns[$orderColumnIndex];
+
+        // Base query for totals - escape reserved keyword 'over'
+        $totalQuery = clone $this->db;
+        $totalQuery->select('
+        SUM(`over`) as total_over,
+        SUM(short) as total_short
+    ');
+        $totalQuery->from('tbl_variance');
+
+        if (!empty($searchValue)) {
+            $totalQuery->group_start();
+            $totalQuery->like('date_added', $searchValue);
+            $totalQuery->or_like('`over`', $searchValue);  // Escape 'over' here too
+            $totalQuery->or_like('short', $searchValue);
+            $totalQuery->group_end();
+        }
+
+        $totals = $totalQuery->get()->row();
+        $totalOver = $totals->total_over ?: 0;
+        $totalShort = $totals->total_short ?: 0;
+
+        // Main query for paginated data - escape 'over' in select and like
+        $this->db->select('
+            date_added,
+            `over`,
+            short
+        ');
+
+        $this->db->from('tbl_variance');
+
+        if (!empty($searchValue)) {
+            $this->db->group_start();
+            $this->db->like('date_added', $searchValue);
+            $this->db->or_like('`over`', $searchValue);  // Escape 'over' here
+            $this->db->or_like('short', $searchValue);
+            $this->db->group_end();
+        }
+
+        $this->db->order_by($orderColumn, $orderDir);
+
+        $subQuery = clone $this->db;
+        $recordsFiltered = $subQuery->get()->num_rows();
+
+        $this->db->limit($length, $start);
+
+        $query = $this->db->get();
+        $data = $query->result_array();
+
+        echo json_encode([
+            "draw" => intval($this->input->post('draw')),
+            "recordsTotal" => $recordsFiltered,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $data,
+            "total_over" => $totalOver,
+            "total_short" => $totalShort
+        ]);
+    }
 }
