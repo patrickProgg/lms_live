@@ -61,26 +61,33 @@
         <div class="table-data">
             <div class="order pt-2" style="background-color:transparent">
                 <div class="row align-items-end mb-3">
-                    <div class="col-auto me-3">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLoaner">
-                            <i class="fas fa-user-plus me-1"></i> Add New
-                        </button>
-                        <button class="btn btn-success" id="generate_daily">
-                            <i class="fas fa-download me-1"></i> Daily Report
-                        </button>
-                        <button class="btn btn-secondary" id="generate_weekly">
-                            <i class="fas fa-download me-1"></i> Weekly Report
-                        </button>
-                        <button class="btn btn-warning" id="generate_monthly">
-                            <i class="fas fa-download me-1"></i> Monthly Report
-                        </button>
-                        <button class="btn btn-info" id="bulk_payment">
-                            <i class="fas fa-credit-card me-1"></i> Bulk Payment
-                        </button>
+                    <div class="col-auto me-3 d-flex justify-content-between align-items-center w-100">
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLoaner">
+                                <i class="fas fa-user-plus me-1"></i> Add New
+                            </button>
+                            <button class="btn btn-success" id="generate_daily">
+                                <i class="fas fa-download me-1"></i> Daily Report
+                            </button>
+                            <button class="btn btn-secondary" id="generate_weekly">
+                                <i class="fas fa-download me-1"></i> Weekly Report
+                            </button>
+                            <button class="btn btn-warning" id="generate_monthly">
+                                <i class="fas fa-download me-1"></i> Monthly Report
+                            </button>
+                            <button class="btn btn-info" id="bulk_payment">
+                                <i class="fas fa-credit-card me-1"></i> Bulk Payment
+                            </button>
 
-                        <input type="date"
-                            style="width: 140px; display: inline-block; height: 34px; background-color: white; color: #444242; border-radius: 6px; border:1px solid var(--bs-secondary)"
-                            class="form-control" id="selected_date" name="selected_date" value="<?= date('Y-m-d') ?>">
+                            <input type="date"
+                                style="width: 140px; display: inline-block; height: 34px; background-color: white; color: #444242; border-radius: 6px; border:1px solid var(--bs-secondary)"
+                                class="form-control" id="selected_date" name="selected_date"
+                                value="<?= date('Y-m-d') ?>">
+                        </div>
+
+                        <button class="btn btn-danger" id="variance_tracking">
+                            <i class="fas fa-balance-scale me-1"></i> Variance Tracking
+                        </button>
                     </div>
                 </div>
                 <table id="client_table" class="table table-hover" style="width:100%">
