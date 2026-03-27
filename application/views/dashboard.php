@@ -192,8 +192,8 @@
         <li style="border-bottom: 2px solid rgba(75, 192, 192, 1);">
             <i class='bx bx-wallet-alt' style="background: rgba(75, 192, 192, 0.2); color: rgba(75, 192, 192, 1);"></i>
             <span class="text">
-                <h3>₱<?= number_format($total_loan_payment, 2) ?>
-                    <p style="color:rgba(75, 192, 192, 1)">Total Receivables</p>
+                <h3>₱<?= number_format($total_loan_payment - ($total_loan_amt - $total_capital_loan_amt), 2) ?></h3>
+                <p style="color:rgba(75, 192, 192, 1)">Total Receivables</p>
             </span>
         </li>
         <!-- </a> -->
