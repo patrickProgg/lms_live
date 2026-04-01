@@ -1395,25 +1395,15 @@ class Monitoring_cont extends CI_Controller
         $this->db->select('
             SUM(a.capital_amt) as total_capital_amt,
             SUM(a.added_amt) as total_added_amt,
-            SUM(a.total_amt) as total_amt,
-            SUM(IFNULL(p.total_payment,0)) as total_payment
+            SUM(a.total_amt) as total_amt
         ');
 
         $this->db->from('tbl_loan as a');
-
-        $this->db->join("
-        (
-                SELECT loan_id, SUM(amt) as total_payment
-                FROM tbl_payment
-                GROUP BY loan_id
-            ) as p
-        ", "p.loan_id = a.id", "left");
-
-        $this->db->join('tbl_client as c', 'c.id = a.cl_id');
+        $this->db->join('tbl_client as b', 'b.id = a.cl_id');
 
         $this->db->where('a.start_date >=', $startMonth);
         $this->db->where('a.start_date <=', $endMonth);
-        $this->db->where('c.status !=', '1');
+        $this->db->where('b.status !=', '1');
 
         return $this->db->get()->row_array();
     }
@@ -1423,15 +1413,16 @@ class Monitoring_cont extends CI_Controller
         $endMonth = date('Y-m-t', strtotime($selectedDate));
 
         $this->db->select('
-            SUM(IFNULL(a.amt,0)) as total_payment
+            SUM(IFNULL(b.amt,0)) as total_payment
         ');
 
         $this->db->from('tbl_loan as a');
-        $this->db->join('tbl_client as b', 'b.id = a.cl_id');
+        $this->db->join('tbl_payment as b', 'b.loan_id = a.id');
+        $this->db->join('tbl_client as c', 'c.id = a.cl_id');
 
-        $this->db->where('a.payment_for >=', $startMonth);
-        $this->db->where('a.payment_for <=', $endMonth);
-        $this->db->where('b.status !=', '1');
+        $this->db->where('b.payment_for >=', $startMonth);
+        $this->db->where('b.payment_for <=', $endMonth);
+        $this->db->where('c.status !=', '1');
 
         return $this->db->get()->row_array();
     }
