@@ -88,6 +88,7 @@ class Monitoring_cont extends CI_Controller
             $this->db->or_like('a.contact_no_1', $searchValue);
             $this->db->or_like('a.contact_no_2', $searchValue);
             $this->db->or_like('a.date_added', $searchValue);
+            $this->db->or_like('a.acc_no', $searchValue);
             $this->db->group_end();
         }
 
