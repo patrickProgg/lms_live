@@ -942,6 +942,7 @@ class Monitoring_cont extends CI_Controller
         $sheet->getColumnDimension('D')->setWidth(15);
 
         $loanData = $this->get_monthly_data($selectedDate);
+        $loanDataPayment = $this->get_monthly_data_payments($selectedDate);
         $expensesData = $this->get_monthly_expenses($selectedDate);
 
         $formattedDate = date('F Y', strtotime($selectedDate));
@@ -965,7 +966,7 @@ class Monitoring_cont extends CI_Controller
 
         $excelRow = 3;
 
-        $sheet->setCellValue('A' . $excelRow, (float) $loanData['total_payment']);
+        $sheet->setCellValue('A' . $excelRow, (float) $loanDataPayment['total_payment']);
         $sheet->getStyle('A' . $excelRow)->getAlignment()
             ->setHorizontal(Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('A' . $excelRow)
@@ -1413,6 +1414,24 @@ class Monitoring_cont extends CI_Controller
         $this->db->where('a.start_date >=', $startMonth);
         $this->db->where('a.start_date <=', $endMonth);
         $this->db->where('c.status !=', '1');
+
+        return $this->db->get()->row_array();
+    }
+    private function get_monthly_data_payments($selectedDate)
+    {
+        $startMonth = date('Y-m-01', strtotime($selectedDate));
+        $endMonth = date('Y-m-t', strtotime($selectedDate));
+
+        $this->db->select('
+            SUM(IFNULL(p.total_payment,0)) as total_payment
+        ');
+
+        $this->db->from('tbl_loan as a');
+        $this->db->join('tbl_client as b', 'b.id = a.cl_id');
+
+        $this->db->where('a.payment_for >=', $startMonth);
+        $this->db->where('a.payment_for <=', $endMonth);
+        $this->db->where('b.status !=', '1');
 
         return $this->db->get()->row_array();
     }
