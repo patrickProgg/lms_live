@@ -1423,7 +1423,7 @@ class Monitoring_cont extends CI_Controller
         $endMonth = date('Y-m-t', strtotime($selectedDate));
 
         $this->db->select('
-            SUM(IFNULL(a.total_payment,0)) as total_payment
+            SUM(IFNULL(a.amt,0)) as total_payment
         ');
 
         $this->db->from('tbl_loan as a');
