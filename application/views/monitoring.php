@@ -1893,6 +1893,14 @@
         address = $('#header_address').text();
 
         function sendAjax(values = {}) {
+
+            var capital_amt = $('#new_capital_amt').val() || $('#running_bal').val();
+
+            if (capital_amt === undefined || capital_amt === null) {
+                Swal.fire('Error', 'Please input capital amount.', 'error');
+                return;
+            }
+
             $.ajax({
                 url: "<?php echo base_url('Monitoring_cont/complete_payment'); ?>",
                 type: "POST",
@@ -1994,6 +2002,11 @@
             const start_date = $('#add_start_date').val();
             const fullname = $('#header_name').text();
             const address = $('#header_address').text();
+
+            if (capital_amt === '') {
+                Swal.fire('Error', 'Please input capital amount.', 'error');
+                return;
+            }
 
             $.ajax({
                 url: "<?php echo base_url('Monitoring_cont/add_new_loan_same_client'); ?>",
