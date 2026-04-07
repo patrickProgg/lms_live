@@ -1894,12 +1894,15 @@
 
         function sendAjax(values = {}) {
 
-            var capital_amt = $('#new_capital_amt').val() || $('#running_bal').val();
-            console.log(capital_amt);
+            if (action === "overdue") {
+                var capital_amt = $('#new_capital_amt').val() || $('#running_bal').val();
+                console.log(capital_amt);
 
-            if (capital_amt === undefined || capital_amt === null) {
-                Swal.fire('Error', 'Please input capital amount.', 'error');
-                return;
+                if (capital_amt === undefined || capital_amt === null) {
+                    Swal.fire('Error', 'Please input capital amount.', 'error');
+                    return;
+                }
+
             }
 
             $.ajax({
