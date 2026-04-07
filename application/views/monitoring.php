@@ -2220,6 +2220,7 @@
         $('#cancelEdit').off('click').on('click', function () {
             const btn = $('#editLoanDetails');
             const original = btn.data('original');
+            $('#dateDropdownBtn').prop('disabled', false);
 
             if (!original) return;
 
