@@ -1828,10 +1828,17 @@
         let statusText = "";
         let statusClass = "";
 
+        const capital_amt = parseFloat($('#header_capital_amt').text());
+
         if (status === 'completed') {
             statusText = "COMPLETED";
             statusClass = "text-success";
-            $('#deleteLoanDetails').addClass('d-none');
+            if (capital_amt === 0) {
+                $('#deleteLoanDetails').removeClass('d-none');
+            }
+            else {
+                $('#deleteLoanDetails').addClass('d-none');
+            }
         } else if (status === 'ongoing') {
             statusText = "ONGOING";
             statusClass = "text-primary";
