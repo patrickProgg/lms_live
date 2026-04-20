@@ -524,8 +524,8 @@ class Monitoring_cont extends CI_Controller
         $loanData = $this->get_daily_data($selectedDate);
 
         $formattedDate = date('F j, Y', strtotime($selectedDate));
-        $excelDateHeader = Date::PHPToExcel(strtotime($selectedDate));
-        $previousDay = Date::PHPToExcel(strtotime($selectedDate . ' -1 day'));
+        $excelDateHeader = Date::PHPToExcel(strtotime($selectedDate . ' +1 day'));
+        $previousDay = Date::PHPToExcel(strtotime($selectedDate));
 
         // Define the base data structure
         $data = [
