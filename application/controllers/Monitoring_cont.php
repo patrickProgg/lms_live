@@ -592,7 +592,7 @@ class Monitoring_cont extends CI_Controller
         // Calculate the starting row for loan data (after the 5 empty rows)
         // Original EXCESS was at row 4, now with 5 empty rows below it (rows 5-9)
         // T O T A L - C P now starts at row 10 instead of row 5
-        $excelRow = 24; // Adjusted from 21 (added 3 rows due to 5 empty rows minus original spacing)
+        $excelRow = 26; // Adjusted from 21 (added 3 rows due to 5 empty rows minus original spacing)
 
         foreach ($loanData as $loan) {
             if ($excelRow > 35) // Adjusted max row from 32 to 35
