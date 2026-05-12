@@ -57,7 +57,7 @@ class Login_cont extends CI_Controller
         $password = $this->input->post('password');
 
         // Check if username is Admin
-        if ($username === "Admin") {
+        if ($username === "admin") {
             echo json_encode([
                 'success' => false,
                 // 'message' => 'Access denied',
