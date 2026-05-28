@@ -94,7 +94,7 @@ class View_ui_cont extends CI_Controller
             ->join('tbl_loan', 'tbl_loan.id = tbl_payment.loan_id')
             ->join('tbl_client', 'tbl_client.id = tbl_loan.cl_id')
             // ->where('tbl_client.status !=', '1')
-            // ->where("tbl_payment.payment_for BETWEEN DATE_ADD(tbl_loan.start_date, INTERVAL 1 DAY) AND tbl_loan.due_date", NULL, FALSE)
+            ->where("tbl_payment.payment_for BETWEEN DATE_ADD(tbl_loan.start_date, INTERVAL 1 DAY) AND tbl_loan.due_date", NULL, FALSE)
             ->get('tbl_payment')
             ->row()
             ->amt ?? 0;
@@ -197,7 +197,7 @@ class View_ui_cont extends CI_Controller
             // ->where('c.status !=', '1')
             ->where('DATE(p.payment_for) >=', $start_date)
             ->where('DATE(p.payment_for) <=', $end_date)
-            // ->where("p.payment_for BETWEEN DATE_ADD(l.start_date, INTERVAL 1 DAY) AND l.due_date", NULL, FALSE);
+            ->where("p.payment_for BETWEEN DATE_ADD(l.start_date, INTERVAL 1 DAY) AND l.due_date", NULL, FALSE);
 
         $query = $this->db->get();
         $row = $query->row();
@@ -219,7 +219,7 @@ class View_ui_cont extends CI_Controller
             ->join('tbl_client as c', 'c.id = b.cl_id', 'left')
             // ->where('c.status !=', '1')
             ->where('YEAR(a.payment_for)', $current_year)
-            // ->where("a.payment_for BETWEEN DATE_ADD(b.start_date, INTERVAL 1 DAY) AND b.due_date", NULL, FALSE)
+            ->where("a.payment_for BETWEEN DATE_ADD(b.start_date, INTERVAL 1 DAY) AND b.due_date", NULL, FALSE)
             ->group_by('MONTH(a.payment_for)')
             ->order_by('MONTH(a.payment_for)');
 
@@ -242,7 +242,7 @@ class View_ui_cont extends CI_Controller
             ->join('tbl_loan as b', 'b.id = a.loan_id', 'left')
             ->join('tbl_client as c', 'c.id = b.cl_id', 'left')
             // ->where('c.status !=', '1')
-            // ->where("a.payment_for BETWEEN DATE_ADD(b.start_date, INTERVAL 1 DAY) AND b.due_date", NULL, FALSE)
+            ->where("a.payment_for BETWEEN DATE_ADD(b.start_date, INTERVAL 1 DAY) AND b.due_date", NULL, FALSE)
             ->where('YEAR(a.payment_for)', $current_year);
 
         $year_total_query = $this->db->get();
