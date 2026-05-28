@@ -1326,6 +1326,7 @@ class Monitoring_cont extends CI_Controller
         $this->db->where('c.status !=', '1');
         $this->db->where("a.payment_for >=", $monday);
         $this->db->where("a.payment_for <=", $sunday);
+        $this->db->where("a.payment_for BETWEEN DATE_ADD(b.start_date, INTERVAL 1 DAY) AND b.due_date", NULL, FALSE);
         $payment_query = $this->db->get();
         $payment_result = $payment_query->row_array();
 
