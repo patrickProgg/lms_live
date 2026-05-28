@@ -94,7 +94,7 @@ class View_ui_cont extends CI_Controller
             ->join('tbl_loan', 'tbl_loan.id = tbl_payment.loan_id')
             ->join('tbl_client', 'tbl_client.id = tbl_loan.cl_id')
             // ->where('tbl_client.status !=', '1')
-            ->where("tbl_payment.payment_for BETWEEN DATE_ADD(tbl_loan.start_date, INTERVAL 1 DAY) AND tbl_loan.due_date", NULL, FALSE)
+            // ->where("tbl_payment.payment_for BETWEEN DATE_ADD(tbl_loan.start_date, INTERVAL 1 DAY) AND tbl_loan.due_date", NULL, FALSE)
             ->get('tbl_payment')
             ->row()
             ->amt ?? 0;
@@ -114,12 +114,23 @@ class View_ui_cont extends CI_Controller
             ->amt;
 
         // In your controller, after fetching the data:
+        // $payment_subquery = "
+        //     (SELECT loan_id, SUM(amt) AS total_paid
+        //     FROM tbl_payment 
+        //     WHERE payment_for BETWEEN DATE_ADD(
+        //         (SELECT start_date FROM tbl_loan WHERE id = tbl_payment.loan_id), 
+        //         INTERVAL 1 DAY
+        //     ) AND (
+        //         SELECT due_date FROM tbl_loan WHERE id = tbl_payment.loan_id
+        //     )
+        //     GROUP BY loan_id) p
+        // ";
+
         $payment_subquery = "
             (SELECT loan_id, SUM(amt) AS total_paid
             FROM tbl_payment 
-            WHERE payment_for BETWEEN DATE_ADD(
-                (SELECT start_date FROM tbl_loan WHERE id = tbl_payment.loan_id), 
-                INTERVAL 1 DAY
+            WHERE payment_for BETWEEN (
+                SELECT start_date FROM tbl_loan WHERE id = tbl_payment.loan_id
             ) AND (
                 SELECT due_date FROM tbl_loan WHERE id = tbl_payment.loan_id
             )
@@ -196,8 +207,8 @@ class View_ui_cont extends CI_Controller
             ->join('tbl_client c', 'c.id = l.cl_id', 'left')
             // ->where('c.status !=', '1')
             ->where('DATE(p.payment_for) >=', $start_date)
-            ->where('DATE(p.payment_for) <=', $end_date)
-            ->where("p.payment_for BETWEEN DATE_ADD(l.start_date, INTERVAL 1 DAY) AND l.due_date", NULL, FALSE);
+            ->where('DATE(p.payment_for) <=', $end_date);
+        // ->where("p.payment_for BETWEEN DATE_ADD(l.start_date, INTERVAL 1 DAY) AND l.due_date", NULL, FALSE);
 
         $query = $this->db->get();
         $row = $query->row();
