@@ -673,10 +673,10 @@ class View_ui_cont extends CI_Controller
         }
 
         // Get total payments for the date range
-        $this->db->select_sum('amt')
-            ->from('tbl_payment')
-            ->where('payment_for >=', $start_date)
-            ->where('payment_for <=', $end_date);
+        $this->db->select_sum('p.amt')
+            ->from('tbl_payment as p')
+            ->join('tbl_loan as l', 'l.id = p.loan_id', 'inner')
+            ->where("p.payment_for BETWEEN GREATEST('$start_date', DATE_ADD(l.start_date, INTERVAL 1 DAY)) AND LEAST('$end_date', l.due_date)", NULL, FALSE);
 
         $query = $this->db->get();
         $range_total = $query->row()->amt ?: 0;
