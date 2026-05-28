@@ -390,7 +390,7 @@ class View_ui_cont extends CI_Controller
             ->join('tbl_loan as b', 'b.id = a.loan_id', 'left')
             ->join('tbl_client as c', 'c.id = b.cl_id', 'left')
             // ->where('c.status !=', '1')
-            ->where("a.payment_for BETWEEN DATE_ADD(b.start_date, INTERVAL 1 DAY) AND b.due_date", NULL, FALSE)
+            // ->where("a.payment_for BETWEEN DATE_ADD(b.start_date, INTERVAL 1 DAY) AND b.due_date", NULL, FALSE)
             ->where('YEAR(a.payment_for)', $year)
             ->group_by('MONTH(a.payment_for)')
             ->order_by('MONTH(a.payment_for)');
