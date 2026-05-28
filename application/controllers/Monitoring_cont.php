@@ -1389,8 +1389,8 @@ class Monitoring_cont extends CI_Controller
         $endMonth = date('Y-m-t', strtotime($selectedDate));
 
         $this->db->select('
-            SUM(IFNULL(b.amt,0)) as total_payment
-        ');
+        SUM(IFNULL(b.amt,0)) as total_payment
+    ');
 
         $this->db->from('tbl_loan as a');
         $this->db->join('tbl_payment as b', 'b.loan_id = a.id');
@@ -1399,6 +1399,7 @@ class Monitoring_cont extends CI_Controller
         $this->db->where('b.payment_for >=', $startMonth);
         $this->db->where('b.payment_for <=', $endMonth);
         $this->db->where('c.status !=', '1');
+        $this->db->where("b.payment_for BETWEEN DATE_ADD(a.start_date, INTERVAL 1 DAY) AND a.due_date", NULL, FALSE);
 
         return $this->db->get()->row_array();
     }
