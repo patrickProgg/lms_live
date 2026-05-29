@@ -170,7 +170,7 @@
                 <i class='bx bx-group' style="background: rgba(255, 99, 132, 0.2); color: rgba(255, 99, 132, 1);"></i>
                 <span class="text">
                     <h3><?php echo $total_client; ?></h3>
-                    <p style="color:rgba(255, 99, 132, 1)">Active Clients test test</p>
+                    <p style="color:rgba(255, 99, 132, 1)">Active Clients</p>
                 </span>
             </li>
         </a>
