@@ -1,30 +1,49 @@
-name: Deploy to Alwaysdata (FTP)
-
+name: FTP Deploy
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    # Ignore git-related changes
+    paths-ignore:
+      - '.git/**'
+      - '.github/**'
+      - '**.md'
+      - '.gitignore'
+      - '.gitattributes'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: FTP Deploy to Alwaysdata
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1  # Only get latest commit
+          
+      # CRITICAL: Remove git files BEFORE deploy
+      - name: Remove Git Files
+        run: |
+          rm -rf .git
+          rm -rf .github
+          rm -f .gitignore
+          rm -f .gitattributes
+          rm -f .editorconfig
+          rm -f .ftp-deploy-sync-state.json
+          
+      - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftps
-          security: loose
           server-dir: /www/
           exclude: |
-            **/.git*
-            **/.github*
-            **/node_modules/**
-            **/vendor/**
+            .git/**
+            .github/**
+            .gitignore
+            .gitattributes
+            .env*
+            *.log
+            *.lock
+            *.json
+            application/cache/**
+            application/logs/**
+          delete-removed: true
