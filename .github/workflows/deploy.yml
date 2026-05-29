@@ -2,13 +2,10 @@ name: FTP Deploy
 on:
   push:
     branches: [ main ]
-    # Ignore git-related changes
     paths-ignore:
       - '.git/**'
       - '.github/**'
       - '**.md'
-      - '.gitignore'
-      - '.gitattributes'
 
 jobs:
   deploy:
@@ -16,9 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1  # Only get latest commit
+          fetch-depth: 1
           
-      # CRITICAL: Remove git files BEFORE deploy
       - name: Remove Git Files
         run: |
           rm -rf .git
@@ -26,7 +22,6 @@ jobs:
           rm -f .gitignore
           rm -f .gitattributes
           rm -f .editorconfig
-          rm -f .ftp-deploy-sync-state.json
           
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
@@ -34,6 +29,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps  # CHANGE THIS - Use FTPS instead of FTP
+          port: 21  # or 990 for implicit FTPS
           server-dir: /www/
           exclude: |
             .git/**
@@ -46,4 +43,4 @@ jobs:
             *.json
             application/cache/**
             application/logs/**
-          delete-removed: true
+          # Remove delete-removed - not supported
