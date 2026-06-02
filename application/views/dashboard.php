@@ -182,7 +182,7 @@
             <i class='bx bx-dollar-circle'
                 style="background: rgba(255, 159, 64, 0.2); color: rgba(255, 159, 64, 1);"></i>
             <span class="text">
-                <h3>₱<?= number_format($total_loan_payment, 2) ?></h3>
+                <h3>₱<?= number_format($total_capital_loan_amt, 2) ?></h3>
                 <p style="color:rgba(255, 159, 64, 1)">Total Released</p>
             </span>
         </li> -->
