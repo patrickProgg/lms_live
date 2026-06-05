@@ -68,6 +68,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,7 +139,7 @@
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
@@ -169,7 +170,7 @@
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .domain {
@@ -294,7 +295,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
         }
 
@@ -311,6 +312,7 @@
                 transform: translateY(-50px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -359,18 +361,19 @@
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .alert-banner {
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .card-footer {
                 flex-direction: column;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -555,29 +558,30 @@
     <script>
         // Simple modal functionality
         document.querySelectorAll('.btn-primary').forEach(btn => {
-            if(btn.innerText.includes('Renew')) {
+            if (btn.innerText.includes('Renew')) {
                 btn.onclick = () => document.getElementById('renewModal').style.display = 'block';
             }
         });
-        
+
         document.querySelectorAll('.btn-secondary').forEach(btn => {
-            if(btn.innerText.includes('Backup')) {
+            if (btn.innerText.includes('Backup')) {
                 btn.onclick = () => document.getElementById('backupModal').style.display = 'block';
             }
         });
-        
+
         document.querySelectorAll('.close').forEach(close => {
-            close.onclick = function() {
+            close.onclick = function () {
                 document.getElementById('renewModal').style.display = 'none';
                 document.getElementById('backupModal').style.display = 'none';
             }
         });
-        
-        window.onclick = function(event) {
-            if(event.target.classList.contains('modal')) {
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }
         }
     </script>
 </body>
+
 </html>
