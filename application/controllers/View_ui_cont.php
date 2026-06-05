@@ -934,6 +934,10 @@ class View_ui_cont extends CI_Controller
     {
         $this->load->view('maintenance');
     }
+    public function subscription()
+    {
+        $this->load->view('subscription');
+    }
     // -------------------------e delete ra og mo bayad na--------------------
 
 }
