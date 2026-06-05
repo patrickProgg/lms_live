@@ -62,6 +62,7 @@ class Login_cont extends CI_Controller
     //             'success' => false,
     //             // 'message' => 'Access denied',
     //             'redirect' => base_url('maintenance')
+    //             'redirect' => base_url('subscription')
     //         ]);
     //         return;
     //     }

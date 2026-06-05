@@ -64,6 +64,7 @@ $route['login'] = 'Login_cont/login';
 $route['logout'] = 'Login_cont/logout';
 $route['dashboard'] = 'View_ui_cont/dashboard';
 $route['test_only'] = 'View_ui_cont/maintenance';
+$route['subscription'] = 'View_ui_cont/subscription';
 $route['client'] = 'View_ui_cont/monitoring';
 $route['pull_out'] = 'View_ui_cont/pull_out';
 $route['expenses'] = 'View_ui_cont/expenses';
