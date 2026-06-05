@@ -72,7 +72,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscription Expired - Hosting Service</title>
+    <title>Subscription Expired - Loan Monitoring System</title>
     <style>
         * {
             margin: 0;
@@ -81,10 +81,10 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .container {
@@ -96,24 +96,53 @@
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .header h1 {
-            font-size: 32px;
+            font-size: 36px;
             margin-bottom: 10px;
         }
 
         .header p {
             opacity: 0.9;
+            font-size: 16px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+            font-size: 14px;
         }
 
         /* Alert Banner */
         .alert-banner {
-            background: #ff4757;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
+            padding: 15px 25px;
+            border-radius: 12px;
             margin-bottom: 30px;
             display: flex;
             align-items: center;
@@ -122,24 +151,45 @@
             gap: 15px;
         }
 
-        .alert-banner i {
-            font-size: 24px;
-            margin-right: 10px;
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-icon {
+            font-size: 28px;
+        }
+
+        .alert-text strong {
+            font-size: 18px;
+        }
+
+        .alert-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 15px;
+            border-radius: 25px;
+            font-size: 14px;
         }
 
         /* Cards Grid */
-        .cards-grid {
+        .subscriptions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
         }
 
         /* Subscription Card */
-        .subscription-card {
+        .card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
         }
 
         .card-header {
@@ -148,120 +198,144 @@
         }
 
         .card-header.expired {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            background: linear-gradient(135deg, #ff6b6b, #c0392b);
             color: white;
         }
 
         .card-header.warning {
-            background: linear-gradient(135deg, #ffa502, #ff6348);
+            background: linear-gradient(135deg, #f39c12, #e67e22);
             color: white;
         }
 
         .card-header.active {
-            background: linear-gradient(135deg, #1e90ff, #00cec9);
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
             color: white;
         }
 
-        .status {
+        .status-badge {
             position: absolute;
             top: 15px;
             right: 15px;
+            background: rgba(0, 0, 0, 0.25);
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
-            background: rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
         }
 
-        .domain {
-            font-size: 18px;
+        .domain-name {
+            font-size: 20px;
             font-weight: bold;
             margin-bottom: 5px;
             padding-right: 80px;
         }
 
-        .package {
+        .package-name {
             font-size: 13px;
             opacity: 0.9;
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 8px;
         }
 
         .card-body {
             padding: 20px;
         }
 
-        .info-item {
+        .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #f0f0f0;
         }
 
         .info-label {
-            color: #666;
+            color: #7f8c8d;
             font-size: 14px;
         }
 
         .info-value {
-            color: #333;
-            font-weight: 500;
+            color: #2c3e50;
+            font-weight: 600;
             font-size: 14px;
         }
 
-        .expired-date {
-            color: #ff4757;
-            font-weight: bold;
+        .expired-value {
+            color: #e74c3c;
         }
 
-        .warning-date {
-            color: #ffa502;
-            font-weight: bold;
+        .warning-value {
+            color: #f39c12;
         }
 
-        .badge {
-            background: #ff4757;
+        .days-badge {
+            background: #e74c3c;
             color: white;
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 12px;
             font-size: 11px;
             margin-left: 8px;
         }
 
-        .badge-warning {
-            background: #ffa502;
+        .days-badge.warning {
+            background: #f39c12;
         }
 
-        .card-footer {
+        .currency {
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .card-actions {
             padding: 15px 20px;
             border-top: 1px solid #f0f0f0;
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn {
             flex: 1;
-            padding: 10px;
+            padding: 10px 16px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
+            transition: all 0.2s;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 14px;
         }
 
         .btn-primary {
-            background: #667eea;
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
             color: white;
         }
 
-        .btn-secondary {
-            background: #dfe6e9;
-            color: #2d3436;
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #bdc3c7;
+            color: #7f8c8d;
+        }
+
+        .btn-outline:hover {
+            background: #ecf0f1;
         }
 
         .btn-danger {
-            background: #ff4757;
+            background: #e74c3c;
             color: white;
         }
 
@@ -270,21 +344,22 @@
             text-align: center;
             padding: 60px 20px;
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
+            margin-top: 20px;
         }
 
-        .empty-state .icon {
+        .empty-icon {
             font-size: 64px;
             margin-bottom: 15px;
         }
 
         .empty-state h3 {
-            color: #2d3436;
+            color: #2c3e50;
             margin-bottom: 8px;
         }
 
         .empty-state p {
-            color: #b2bec3;
+            color: #95a5a6;
         }
 
         /* Modal */
@@ -297,25 +372,27 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content {
             background: white;
             max-width: 450px;
-            margin: 80px auto;
-            border-radius: 12px;
-            animation: slideDown 0.3s ease;
+            width: 90%;
+            border-radius: 16px;
+            animation: modalFadeIn 0.3s ease;
         }
 
-        @keyframes slideDown {
+        @keyframes modalFadeIn {
             from {
-                transform: translateY(-50px);
                 opacity: 0;
+                transform: translateY(-30px);
             }
 
             to {
-                transform: translateY(0);
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -327,13 +404,13 @@
             position: relative;
         }
 
-        .close {
+        .modal-close {
             position: absolute;
             right: 20px;
             top: 20px;
             cursor: pointer;
             font-size: 20px;
-            color: #999;
+            color: #95a5a6;
         }
 
         .modal-body {
@@ -348,17 +425,42 @@
             justify-content: flex-end;
         }
 
-        select {
+        .renew-option {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .price-comparison {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .php-price {
+            color: #2a5298;
+            font-weight: bold;
+        }
+
+        .usd-price {
+            color: #27ae60;
+            font-size: 13px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .cards-grid {
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .subscriptions-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -367,7 +469,11 @@
                 text-align: center;
             }
 
-            .card-footer {
+            .alert-content {
+                justify-content: center;
+            }
+
+            .card-actions {
                 flex-direction: column;
             }
         }
@@ -377,158 +483,241 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📦 Hosting Subscriptions</h1>
-            <p>Manage your hosting accounts and renewals</p>
+            <h1>🏦 LOAN MONITORING SYSTEM</h1>
+            <p>Hosting Subscription Management</p>
         </div>
 
-        <!-- Alert Banner for Expired -->
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Active Subscriptions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Expired</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Expiring Soon</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Days Grace Period</div>
+            </div>
+        </div>
+
+        <!-- Alert for expired -->
         <div class="alert-banner">
-            <div>
-                <i>⚠️</i>
-                <strong>2 subscriptions have expired!</strong> Renew now to avoid data loss
+            <div class="alert-content">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-text">
+                    <strong>3 subscriptions have expired!</strong>
+                    <span style="font-size: 13px;"> Renew within 5 days to avoid data loss</span>
+                </div>
             </div>
-            <div>
-                🕐 Grace period ends in 5 days
+            <div class="alert-badge">
+                🕐 Grace period ends: June 30, 2024
             </div>
         </div>
 
-        <div class="cards-grid">
-            <!-- Card 1: Expired -->
-            <div class="subscription-card">
+        <div class="subscriptions-grid">
+            <!-- Card 1: Expired - Loan Database -->
+            <div class="card">
                 <div class="card-header expired">
-                    <div class="status">EXPIRED</div>
-                    <div class="domain">mywebsite.com</div>
-                    <div class="package">Business Hosting - 20GB</div>
+                    <span class="status-badge">EXPIRED</span>
+                    <div class="domain-name">loan-data.alwaysdata.net</div>
+                    <div class="package-name">Database Hosting - 10GB</div>
+                    <div class="price-tag">₱300 / month | $5.20 USD</div>
                 </div>
                 <div class="card-body">
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Start Date</span>
-                        <span class="info-value">15 Jan 2024</span>
+                        <span class="info-value">Jan 15, 2024</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Expiry Date</span>
-                        <span class="info-value expired-date">
-                            15 Jun 2024
-                            <span class="badge">15 days overdue</span>
+                        <span class="info-value expired-value">
+                            Jun 15, 2024
+                            <span class="days-badge">15 days overdue</span>
                         </span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Auto Renew</span>
                         <span class="info-value">❌ Disabled</span>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Grace Period</span>
-                        <span class="info-value">7 days</span>
+                    <div class="info-row">
+                        <span class="info-label">Last Payment</span>
+                        <span class="info-value">₱300 <span class="currency">($5.20 USD)</span></span>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary">Renew Now ($14.99/mo)</button>
-                    <button class="btn btn-secondary">Backup Data</button>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="openRenewModal('loan-data.alwaysdata.net')">Renew Now -
+                        ₱300</button>
+                    <button class="btn btn-outline" onclick="openBackupModal()">Backup Data</button>
                 </div>
             </div>
 
-            <!-- Card 2: Expiring Soon -->
-            <div class="subscription-card">
+            <!-- Card 2: Expiring Soon - Reports -->
+            <div class="card">
                 <div class="card-header warning">
-                    <div class="status">EXPIRING SOON</div>
-                    <div class="domain">myblog.net</div>
-                    <div class="package">Starter Hosting - 5GB</div>
+                    <span class="status-badge">EXPIRING SOON</span>
+                    <div class="domain-name">reports.alwaysdata.net</div>
+                    <div class="package-name">Reporting Server - 20GB</div>
+                    <div class="price-tag">₱300 / month | $5.20 USD</div>
                 </div>
                 <div class="card-body">
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Start Date</span>
-                        <span class="info-value">01 Mar 2024</span>
+                        <span class="info-value">Mar 01, 2024</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Expiry Date</span>
-                        <span class="info-value warning-date">
-                            30 Jun 2024
-                            <span class="badge badge-warning">3 days left</span>
+                        <span class="info-value warning-value">
+                            Jun 28, 2024
+                            <span class="days-badge warning">3 days left</span>
                         </span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Auto Renew</span>
                         <span class="info-value">✅ Enabled</span>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Grace Period</span>
-                        <span class="info-value">7 days</span>
+                    <div class="info-row">
+                        <span class="info-label">Last Payment</span>
+                        <span class="info-value">₱300 <span class="currency">($5.20 USD)</span></span>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary">Renew Now ($9.99/mo)</button>
-                    <button class="btn btn-secondary">View Details</button>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="openRenewModal('reports.alwaysdata.net')">Renew Now -
+                        ₱300</button>
+                    <button class="btn btn-outline">View Details</button>
                 </div>
             </div>
 
-            <!-- Card 3: Active but showing expiry -->
-            <div class="subscription-card">
+            <!-- Card 3: Active - API Service -->
+            <div class="card">
                 <div class="card-header active">
-                    <div class="status">ACTIVE</div>
-                    <div class="domain">onlineshop.org</div>
-                    <div class="package">Ecommerce Hosting - 50GB</div>
+                    <span class="status-badge">ACTIVE</span>
+                    <div class="domain-name">api.alwaysdata.net</div>
+                    <div class="package-name">API Hosting - 5GB</div>
+                    <div class="price-tag">₱300 / month | $5.20 USD</div>
                 </div>
                 <div class="card-body">
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Start Date</span>
-                        <span class="info-value">01 Apr 2024</span>
+                        <span class="info-value">Apr 10, 2024</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Expiry Date</span>
                         <span class="info-value">
-                            15 Oct 2024
-                            <span class="badge badge-warning">120 days left</span>
+                            Jul 10, 2024
+                            <span class="days-badge warning" style="background:#27ae60;">45 days left</span>
                         </span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span class="info-label">Auto Renew</span>
                         <span class="info-value">✅ Enabled</span>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Grace Period</span>
-                        <span class="info-value">7 days</span>
+                    <div class="info-row">
+                        <span class="info-label">Last Payment</span>
+                        <span class="info-value">₱300 <span class="currency">($5.20 USD)</span></span>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary">Renew Early ($29.99/mo)</button>
-                    <button class="btn btn-secondary">Manage</button>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="openRenewModal('api.alwaysdata.net')">Renew Early -
+                        ₱300</button>
+                    <button class="btn btn-outline">Configure</button>
+                </div>
+            </div>
+
+            <!-- Card 4: Expired - Backup Storage -->
+            <div class="card">
+                <div class="card-header expired">
+                    <span class="status-badge">EXPIRED</span>
+                    <div class="domain-name">backup.alwaysdata.net</div>
+                    <div class="package-name">Cloud Backup - 50GB</div>
+                    <div class="price-tag">₱300 / month | $5.20 USD</div>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Start Date</span>
+                        <span class="info-value">Dec 01, 2023</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Expiry Date</span>
+                        <span class="info-value expired-value">
+                            Jun 01, 2024
+                            <span class="days-badge">20 days overdue</span>
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Auto Renew</span>
+                        <span class="info-value">❌ Disabled</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Payment</span>
+                        <span class="info-value">₱300 <span class="currency">($5.20 USD)</span></span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="openRenewModal('backup.alwaysdata.net')">Renew Now -
+                        ₱300</button>
+                    <button class="btn btn-outline" onclick="openBackupModal()">Backup Data</button>
                 </div>
             </div>
         </div>
-
-        <!-- Alternative Empty State (hidden by default, show when no subscriptions) -->
-        <!--
-        <div class="empty-state">
-            <div class="icon">🎉</div>
-            <h3>No Expired Subscriptions</h3>
-            <p>All your hosting subscriptions are active and up to date!</p>
-        </div>
-        -->
     </div>
 
     <!-- Renew Modal -->
     <div id="renewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
+                <span class="modal-close" onclick="closeModal('renewModal')">&times;</span>
                 Renew Subscription
             </div>
             <div class="modal-body">
-                <p><strong>mywebsite.com</strong></p>
-                <p>Select renewal period:</p>
-                <select>
-                    <option>1 Month - $14.99</option>
-                    <option>3 Months - $39.99 (Save 11%)</option>
-                    <option>6 Months - $74.99 (Save 17%)</option>
-                    <option>12 Months - $139.99 (Save 22%)</option>
+                <p><strong id="renewDomain">domain.alwaysdata.net</strong></p>
+                <p style="margin: 10px 0; color: #666;">Select renewal period:</p>
+                <select class="renew-option" id="renewPeriod" onchange="updatePrice()">
+                    <option value="1">1 Month - ₱300 ($5.20 USD)</option>
+                    <option value="3">3 Months - ₱855 ($14.82 USD) Save 5%</option>
+                    <option value="6">6 Months - ₱1,620 ($28.08 USD) Save 10%</option>
+                    <option value="12">12 Months - ₱3,060 ($53.04 USD) Save 15%</option>
                 </select>
-                <p style="font-size: 12px; color: #666; margin-top: 10px;">
-                    ✓ Instant activation<br>
-                    ✓ 30-day money-back guarantee
-                </p>
+
+                <div class="price-comparison">
+                    <div>
+                        <div class="php-price" id="phpPrice">₱300</div>
+                        <div class="usd-price" id="usdPrice">$5.20 USD</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 12px; color: #666;">per month avg.</div>
+                        <div class="php-price" id="phpMonthly">₱300</div>
+                    </div>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Subtotal:</span>
+                        <strong id="totalPHP">₱300</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: #27ae60;">
+                        <span>Discount:</span>
+                        <span id="discountPHP">₱0</span>
+                    </div>
+                    <hr style="margin: 10px 0;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Total (PHP):</span>
+                        <strong style="font-size: 18px;" id="finalPHP">₱300</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                        <span>Total (USD):</span>
+                        <strong id="finalUSD">$5.20 USD</strong>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary">Cancel</button>
+                <button class="btn btn-outline" onclick="closeModal('renewModal')">Cancel</button>
                 <button class="btn btn-primary">Proceed to Payment</button>
             </div>
         </div>
@@ -538,44 +727,76 @@
     <div id="backupModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
+                <span class="modal-close" onclick="closeModal('backupModal')">&times;</span>
                 Download Backup
             </div>
             <div class="modal-body">
-                <p>Your subscription has expired. Download your data before it gets deleted.</p>
-                <div style="margin-top: 15px;">
-                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">📁 Website Files</button>
-                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">🗄️ Database</button>
-                    <button class="btn btn-primary" style="width: 100%;">💾 Full Backup (ZIP)</button>
+                <p style="margin-bottom: 15px;">⚠️ Your subscription has expired. Download your data before the grace
+                    period ends.</p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn btn-primary" style="background: #3498db;">📁 Download Website Files</button>
+                    <button class="btn btn-primary" style="background: #2ecc71;">🗄️ Download Database</button>
+                    <button class="btn btn-primary" style="background: #9b59b6;">💾 Download Full Backup (ZIP)</button>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary">Close</button>
+                <button class="btn btn-outline" onclick="closeModal('backupModal')">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Simple modal functionality
-        document.querySelectorAll('.btn-primary').forEach(btn => {
-            if (btn.innerText.includes('Renew')) {
-                btn.onclick = () => document.getElementById('renewModal').style.display = 'block';
-            }
-        });
+        // Exchange rate: 1 USD = 58 PHP
+        const EXCHANGE_RATE = 58;
+        const BASE_PRICE = 300; // PHP
 
-        document.querySelectorAll('.btn-secondary').forEach(btn => {
-            if (btn.innerText.includes('Backup')) {
-                btn.onclick = () => document.getElementById('backupModal').style.display = 'block';
-            }
-        });
+        function updatePrice() {
+            const period = parseInt(document.getElementById('renewPeriod').value);
+            let totalPHP = BASE_PRICE * period;
+            let discount = 0;
+            let monthlyPHP = BASE_PRICE;
 
-        document.querySelectorAll('.close').forEach(close => {
-            close.onclick = function () {
-                document.getElementById('renewModal').style.display = 'none';
-                document.getElementById('backupModal').style.display = 'none';
+            // Apply discounts
+            if (period === 3) {
+                discount = totalPHP * 0.05;
+                totalPHP = totalPHP - discount;
+                monthlyPHP = totalPHP / 3;
+            } else if (period === 6) {
+                discount = totalPHP * 0.10;
+                totalPHP = totalPHP - discount;
+                monthlyPHP = totalPHP / 6;
+            } else if (period === 12) {
+                discount = totalPHP * 0.15;
+                totalPHP = totalPHP - discount;
+                monthlyPHP = totalPHP / 12;
             }
-        });
 
+            const totalUSD = totalPHP / EXCHANGE_RATE;
+            const monthlyUSD = monthlyPHP / EXCHANGE_RATE;
+
+            document.getElementById('phpPrice').innerHTML = `₱${Math.round(monthlyPHP)}`;
+            document.getElementById('usdPrice').innerHTML = `$${monthlyUSD.toFixed(2)} USD`;
+            document.getElementById('totalPHP').innerHTML = `₱${Math.round(totalPHP)}`;
+            document.getElementById('discountPHP').innerHTML = `₱${Math.round(discount)}`;
+            document.getElementById('finalPHP').innerHTML = `₱${Math.round(totalPHP)}`;
+            document.getElementById('finalUSD').innerHTML = `$${totalUSD.toFixed(2)} USD`;
+        }
+
+        function openRenewModal(domain) {
+            document.getElementById('renewDomain').innerText = domain;
+            document.getElementById('renewModal').style.display = 'flex';
+            updatePrice();
+        }
+
+        function openBackupModal() {
+            document.getElementById('backupModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
         window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
