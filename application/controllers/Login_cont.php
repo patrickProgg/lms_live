@@ -20,51 +20,10 @@ class Login_cont extends CI_Controller
     }
 
     // -------------------------ibalik ra og mo bayad na--------------------
-    // public function authenticate()
-    // {
-    //     $username = $this->input->post('username');
-    //     $password = $this->input->post('password');
-
-    //     $user = $this->authenticateUser($username, $password);
-
-    //     if ($user) {
-    //         // Set session data
-    //         $this->session->set_userdata('logged_in', TRUE);
-    //         $this->session->set_userdata('user_id', $user->id);
-    //         $this->session->set_userdata('username', $user->username);
-    //         $this->session->set_flashdata('welcome_toast', 'Welcome back, ' . ucfirst($user->username) . '!');
-
-    //         // Return success response with redirect
-    //         echo json_encode([
-    //             'success' => true,
-    //             'message' => 'Login successful',
-    //             'redirect' => base_url('dashboard')
-    //         ]);
-    //     } else {
-    //         echo json_encode([
-    //             'success' => false,
-    //             'message' => 'Invalid username/email or password.'
-    //         ]);
-    //     }
-
-    // }
-
-    // -------------------------ibalik ra og mo bayad na--------------------
-
     public function authenticate()
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-
-        // Check if username is Admin
-        if ($username === "admin") {
-            echo json_encode([
-                'success' => false,
-                // 'message' => 'Access denied',
-                'redirect' => base_url('maintenance')
-            ]);
-            return;
-        }
 
         $user = $this->authenticateUser($username, $password);
 
@@ -87,7 +46,48 @@ class Login_cont extends CI_Controller
                 'message' => 'Invalid username/email or password.'
             ]);
         }
+
     }
+
+    // -------------------------ibalik ra og mo bayad na--------------------
+
+    // public function authenticate()
+    // {
+    //     $username = $this->input->post('username');
+    //     $password = $this->input->post('password');
+
+    //     // Check if username is Admin
+    //     if ($username === "admin") {
+    //         echo json_encode([
+    //             'success' => false,
+    //             // 'message' => 'Access denied',
+    //             'redirect' => base_url('maintenance')
+    //         ]);
+    //         return;
+    //     }
+
+    //     $user = $this->authenticateUser($username, $password);
+
+    //     if ($user) {
+    //         // Set session data
+    //         $this->session->set_userdata('logged_in', TRUE);
+    //         $this->session->set_userdata('user_id', $user->id);
+    //         $this->session->set_userdata('username', $user->username);
+    //         $this->session->set_flashdata('welcome_toast', 'Welcome back, ' . ucfirst($user->username) . '!');
+
+    //         // Return success response with redirect
+    //         echo json_encode([
+    //             'success' => true,
+    //             'message' => 'Login successful',
+    //             'redirect' => base_url('dashboard')
+    //         ]);
+    //     } else {
+    //         echo json_encode([
+    //             'success' => false,
+    //             'message' => 'Invalid username/email or password.'
+    //         ]);
+    //     }
+    // }
 
     public function logout()
     {
