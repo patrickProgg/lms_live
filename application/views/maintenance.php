@@ -348,20 +348,19 @@
             <div class="card-header">
                 <div class="status-badge">⚠️ EXPIRED</div>
                 <div class="domain-name">loan-monitoring.alwaysdata.net</div>
-                <div class="package-name">Hosting Subscription - 10GB Storage</div>
+                <div class="package-name">Hosting Subscription - 1GB Storage</div>
                 <div class="price-tag">₱300 / month | $5.20 USD</div>
             </div>
             
             <div class="card-body">
                 <div class="info-row">
                     <span class="info-label">Start Date</span>
-                    <span class="info-value">January 15, 2024</span>
+                    <span class="info-value">May 15, 2026</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Expiry Date</span>
                     <span class="info-value expired-value">
-                        June 15, 2024
-                        <span class="days-badge">15 days overdue</span>
+                        June 15, 2026
                     </span>
                 </div>
                 <div class="info-row">
@@ -372,57 +371,14 @@
                     <span class="info-label">Last Payment</span>
                     <span class="info-value">₱300 <span class="currency">($5.20 USD)</span></span>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Grace Period</span>
-                    <span class="info-value">5 days remaining</span>
-                </div>
 
                 <!-- Alert Message -->
                 <div class="alert-message">
                     <p>⚠️ <strong>Your subscription has expired!</strong><br>
-                    Your website and data will be suspended after the grace period ends.</p>
-                </div>
-
-                <!-- Contact Message -->
-                <div class="contact-card">
-                    <h4>📞 To renew your subscription:</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <span class="contact-icon">📧</span>
-                            <span>Email: admin@loan-monitoring.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📱</span>
-                            <span>Phone: +63 XXX XXX XXXX</span>
-                        </div>
-                    </div>
-                    
-                    <button class="btn-whatsapp" onclick="window.location.href='https://wa.me/63XXXXXXXXXX'">
-                        💬 Contact Developer on WhatsApp
-                    </button>
-                    
-                    <div class="info-box">
-                        <p>💡 After sending payment proof, your subscription will be reactivated within 24 hours.</p>
-                    </div>
-                </div>
-
-                <div class="divider">
-                    <span>Need help?</span>
-                </div>
-
-                <div class="info-row" style="border-bottom: none;">
-                    <span class="info-label">Support Hours</span>
-                    <span class="info-value">Mon-Fri: 9AM - 6PM</span>
+                    Your website and data will be suspended after this day, please contact your developer.</p>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Simple redirect for WhatsApp (update with actual number)
-        function contactDeveloper() {
-            alert("Contact developer: admin@loan-monitoring.com\nOr call: +63 XXX XXX XXXX");
-        }
-    </script>
 </body>
 </html>
