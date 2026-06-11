@@ -43,4 +43,8 @@ jobs:
             *.json
             application/cache/**
             application/logs/**
+<<<<<<< HEAD
           # Remove delete-removed - not supported
+=======
+          # Remove delete-removed - not supported
+>>>>>>> 4a7edefde13a7e99271fd4ae284c47127992f59e
