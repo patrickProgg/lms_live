@@ -34,6 +34,7 @@ $db['default'] = array(
 	'username' => 'loan-monitoring',
 	'password' => 'ackXBu_FqG8KhbU',
 	'database' => 'loan-monitoring_lms_live',
+	
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
