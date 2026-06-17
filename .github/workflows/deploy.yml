@@ -37,12 +37,9 @@ jobs:
             .github/**
             .gitignore
             .gitattributes
-            .env*
-            *.log
-            *.lock
-            *.json
             application/cache/**
             application/logs/**
+            *.log
 <<<<<<< HEAD
           # Remove delete-removed - not supported
 =======
