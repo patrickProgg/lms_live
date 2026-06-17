@@ -338,13 +338,13 @@
         </a>
 
         <ul class="navbar-nav flex-row align-items-center me-auto" style="margin: 0; padding: 0; column-gap: 12px;">
-            <li class="nav-item" style="flex-shrink: 1; min-width: 0;">
+            <!-- <li class="nav-item" style="flex-shrink: 1; min-width: 0;">
                 <a class="nav-link d-flex align-items-center gap-1 <?= ($this->uri->segment(1) == 'dashboard') ? 'active-nav' : '' ?>"
                     href="<?= base_url(); ?>dashboard">
                     <i class="bx bx-pulse"></i>
                     <span class="menu-label">Dashboard</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item" style="flex-shrink: 1; min-width: 0;">
                 <a class="nav-link d-flex align-items-center gap-1 <?= ($this->uri->segment(1) == 'client') ? 'active-nav' : '' ?>"
                     href="<?= base_url(); ?>client">
