@@ -190,28 +190,25 @@
             <i class='bx bx-dollar-circle'
                 style="background: rgba(255, 159, 64, 0.2); color: rgba(255, 159, 64, 1);"></i>
             <span class="text">
-                <h3>₱<?= number_format($total_loan_amt - $total_capital_loan_amt, 2) ?></h3>
+                <h3>₱<?= number_format(($total_loan_amt ?? 0) - ($total_capital_loan_amt ?? 0), 2) ?></h3>
                 <p style="color:rgba(255, 159, 64, 1)">Total Profit</p>
             </span>
         </li>
-        <!-- </a> -->
 
-        <!-- <a href="<?= base_url(); ?>location" style="text-decoration: none; color: inherit;"> -->
         <li style="border-bottom: 2px solid rgba(75, 192, 192, 1);">
             <i class='bx bx-wallet-alt' style="background: rgba(75, 192, 192, 0.2); color: rgba(75, 192, 192, 1);"></i>
             <span class="text">
-                <h3>₱<?= number_format($total_loan_amt - $total_loan_payment, 2) ?></h3>
+                <h3>₱<?= number_format(($total_loan_amt ?? 0) - ($total_loan_payment ?? 0), 2) ?></h3>
                 <p style="color:rgba(75, 192, 192, 1)">Total Receivables</p>
             </span>
         </li>
-        <!-- </a> -->
 
         <a href="<?= base_url(); ?>pull_out" style="text-decoration: none; color: inherit;">
             <li style="border-bottom: 2px solid rgba(153, 102, 255, 1);">
                 <i class='bx bx-log-out'
                     style="background: rgba(153, 102, 255, 0.2); color: rgba(153, 102, 255, 1);"></i>
                 <span class="text">
-                    <h3>₱<?= number_format($total_pull_out, 2) ?></h3>
+                    <h3>₱<?= number_format($total_pull_out ?? 0, 2) ?></h3>
                     <p style="color:rgba(153, 102, 255, 1)">Total Pull Out</p>
                 </span>
             </li>
@@ -221,7 +218,7 @@
             <li style="border-bottom: 2px solid rgba(54, 162, 235, 1); ">
                 <i class='bx bxs-flame' style="background: rgba(54, 162, 235, 0.2); color: rgba(54, 162, 235, 1);"></i>
                 <span class="text">
-                    <h3>₱<?= number_format($total_expenses, 2) ?></h3>
+                    <h3>₱<?= number_format($total_expenses ?? 0, 2) ?></h3>
                     <p style="color:rgba(54, 162, 235, 1)">Total Expenses</p>
                 </span>
             </li>
