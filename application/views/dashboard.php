@@ -228,56 +228,6 @@
 
 
 <div class="row mb-3">
-    <!-- <div class="col-md-8 px-3">
-        <div class="card h-100">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h3 class="card-title mb-0" style="display: flex; align-items: center; gap: 10px;">
-                        <span>💰 Payment Filter</span>
-                        <form method="GET" action="" id="dateForm" style="margin: 0;">
-                            <input type="date"
-                                style="width: 150px; display: inline-block; height: 28px; background-color: white; color: #444242; border-radius: 6px; border:1px solid var(--bs-info)"
-                                class="form-control" id="selected_date" name="selected_date"
-                                value="<?php echo $selected_date; ?>">
-                        </form>
-                    </h3>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card bg-light">
-                    <div class="card-body text-center">
-                        <h4 class="text-muted mb-3" id="dateRangeText">
-                        </h4>
-
-                        <div class="display-4 font-weight-bold text-success mb-3" id="rangeTotalDisplay">
-                        </div>
-
-                        <div class="text-muted" id="rangeInfoDisplay">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-3 text-center">
-                    <small class="text-muted">
-                        Quick select:
-                        <a href="#" data-range="day" data-date="<?php echo date('Y-m-d'); ?>"
-                            class="btn btn-sm btn-outline-secondary quick-select">
-                            Today
-                        </a>
-                        <a href="#" data-range="week" data-date="<?php echo $selected_date; ?>"
-                            class="btn btn-sm btn-outline-secondary quick-select">
-                            Week
-                        </a>
-                        <a href="#" data-range="month" data-date="<?php echo $selected_date; ?>"
-                            class="btn btn-sm btn-outline-secondary quick-select">
-                            Month
-                        </a>
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="col-md-8 px-3">
         <div class="card h-100">
             <div class="card-header">
@@ -297,7 +247,7 @@
                             <input type="date"
                                 style="font-size: 12px; width: 150px; display: inline-block; height: 28px; background-color: white; color: #444242; border-radius: 6px; border:1px solid var(--bs-info)"
                                 class="form-control" id="selected_date" name="selected_date"
-                                value="<?php echo $selected_date; ?>">
+                                value="<?php echo isset($selected_date) ? $selected_date : date('Y-m-d'); ?>">
                         </div>
                     </h3>
                 </div>
@@ -326,11 +276,13 @@
                             class="btn btn-sm btn-outline-secondary quick-select">
                             Today
                         </a>
-                        <a href="#" data-range="week" data-date="<?php echo $selected_date; ?>"
+                        <a href="#" data-range="week"
+                            data-date="<?php echo isset($selected_date) ? $selected_date : date('Y-m-d'); ?>"
                             class="btn btn-sm btn-outline-secondary quick-select">
                             Week
                         </a>
-                        <a href="#" data-range="month" data-date="<?php echo $selected_date; ?>"
+                        <a href="#" data-range="month"
+                            data-date="<?php echo isset($selected_date) ? $selected_date : date('Y-m-d'); ?>"
                             class="btn btn-sm btn-outline-secondary quick-select">
                             Month
                         </a>
@@ -351,7 +303,7 @@
                                     Ongoing Loans
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <?php echo $loan_status_counts['ongoing'] ?? 0; ?>
+                                    <?php echo isset($loan_status_counts['ongoing']) ? $loan_status_counts['ongoing'] : 0; ?>
                                 </div>
                                 <div class="mt-2">
                                     <span class="badge badge-primary text-primary">Active</span>
@@ -374,7 +326,7 @@
                                     Overdue Loans
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <?php echo $loan_status_counts['overdue'] ?? 0; ?>
+                                    <?php echo isset($loan_status_counts['overdue']) ? $loan_status_counts['overdue'] : 0; ?>
                                 </div>
                                 <div class="mt-2">
                                     <span class="badge badge-danger text-danger">Attention Needed</span>
@@ -397,7 +349,7 @@
                                     Completed Loans
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <?php echo $loan_status_counts['completed'] ?? 0; ?>
+                                    <?php echo isset($loan_status_counts['completed']) ? $loan_status_counts['completed'] : 0; ?>
                                 </div>
                                 <div class="mt-2">
                                     <span class="badge badge-success text-success">Paid Off</span>
@@ -428,7 +380,6 @@
                             <option value="pullout">Pull Out</option>
                             <option value="expenses">Expenses</option>
                         </select>
-                        <!-- <span class="mx-2">-</span> -->
                         <select id="yearSelect" class="form-control-sm border-info"
                             style="width: 80px; display: inline-block; height: 28px; background-color: white; color: #444242;">
                         </select>
@@ -445,7 +396,7 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <h5 class="card-title text-center mb-4">💰 Year
-                                    <?php echo $current_year; ?> Summary
+                                    <?php echo isset($current_year) ? $current_year : date('Y'); ?> Summary
                                 </h5>
 
                                 <div class="mb-3">
@@ -453,7 +404,7 @@
                                         <span class="text-muted">Total</span>
                                         <span class="font-weight-bold text-success total-collection">
                                             ₱
-                                            <?php echo number_format($year_total_payment, 2); ?>
+                                            <?php echo isset($year_total_payment) ? number_format($year_total_payment, 2) : number_format(0, 2); ?>
                                         </span>
                                     </div>
                                     <div class="progress" style="height: 8px;">
@@ -467,23 +418,26 @@
                                         <span class="font-weight-bold text-primary average-monthly">
                                             ₱
                                             <?php
-                                            $avg_monthly = $year_total_payment / 12;
+                                            $year_total = isset($year_total_payment) ? $year_total_payment : 0;
+                                            $avg_monthly = $year_total / 12;
                                             echo number_format($avg_monthly, 2);
                                             ?>
                                         </span>
                                     </div>
                                     <div class="progress" style="height: 8px;">
                                         <div class="progress-bar bg-primary"
-                                            style="width: <?php echo min(100, ($avg_monthly / max($year_total_payment, 1)) * 100); ?>%">
+                                            style="width: <?php echo $year_total > 0 ? min(100, ($avg_monthly / $year_total) * 100) : 0; ?>%">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <?php
-                                    $max_month = $monthly_payments ? max($monthly_payments) : 0;
-                                    $max_month_index = $max_month ? array_search($max_month, $monthly_payments) : 0;
-                                    $max_month_name = $months[$max_month_index] ?? 'N/A';
+                                    $monthly_payments = isset($monthly_payments) && is_array($monthly_payments) ? $monthly_payments : array_fill(0, 12, 0);
+                                    $months = isset($months) && is_array($months) ? $months : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                                    $max_month = !empty($monthly_payments) ? max($monthly_payments) : 0;
+                                    $max_month_index = $max_month > 0 ? array_search($max_month, $monthly_payments) : 0;
+                                    $max_month_name = isset($months[$max_month_index]) ? $months[$max_month_index] : 'N/A';
                                     ?>
                                     <div class="d-flex justify-content-between mb-1">
                                         <span class="text-muted">Highest Month (
@@ -496,16 +450,17 @@
                                     </div>
                                     <div class="progress" style="height: 8px;">
                                         <div class="progress-bar bg-warning"
-                                            style="width: <?php echo $max_month ? ($max_month / max($year_total_payment, 1)) * 100 : 0; ?>%">
+                                            style="width: <?php echo $year_total > 0 ? ($max_month / $year_total) * 100 : 0; ?>%">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <?php
-                                    $min_month = $monthly_payments ? min(array_filter($monthly_payments)) : 0;
-                                    $min_month_index = $min_month ? array_search($min_month, $monthly_payments) : 0;
-                                    $min_month_name = $months[$min_month_index] ?? 'N/A';
+                                    $filtered_payments = array_filter($monthly_payments);
+                                    $min_month = !empty($filtered_payments) ? min($filtered_payments) : 0;
+                                    $min_month_index = $min_month > 0 ? array_search($min_month, $monthly_payments) : 0;
+                                    $min_month_name = isset($months[$min_month_index]) ? $months[$min_month_index] : 'N/A';
                                     ?>
                                     <div class="d-flex justify-content-between mb-1">
                                         <span class="text-muted">Lowest Month (
@@ -518,7 +473,7 @@
                                     </div>
                                     <div class="progress" style="height: 8px;">
                                         <div class="progress-bar bg-info"
-                                            style="width: <?php echo $min_month ? ($min_month / max($year_total_payment, 1)) * 100 : 0; ?>%">
+                                            style="width: <?php echo $year_total > 0 ? ($min_month / $year_total) * 100 : 0; ?>%">
                                         </div>
                                     </div>
                                 </div>
@@ -537,7 +492,6 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="card-title mb-0">🏆 Top Good Clients</h3>
-                    <!-- <span class="badge badge-danger" style="color: #444242;">Least Overduess</span> -->
                 </div>
             </div>
             <div class="card-body pt-3 pb-3">
@@ -551,30 +505,30 @@
                                 <h5 class="card-title text-center mb-3">📊 Performance Metrics</h5>
 
                                 <div class="list-group">
-                                    <?php if (!empty($good_payors)): ?>
+                                    <?php if (!empty($good_payors) && is_array($good_payors)): ?>
                                         <?php foreach ($good_payors as $index => $payor):
-                                            $completion_rate = $payor['total_loans'] > 0 ?
-                                                round(($payor['completed_loans'] / $payor['total_loans']) * 100, 1) : 0;
-                                            $overdue_rate = $payor['total_loans'] > 0 ?
-                                                round(($payor['overdue_loans'] / $payor['total_loans']) * 100, 1) : 0;
+                                            // Safely access array keys with null coalescing
+                                            $total_loans = isset($payor['total_loans']) ? (int) $payor['total_loans'] : 0;
+                                            $completed_loans = isset($payor['completed_loans']) ? (int) $payor['completed_loans'] : 0;
+                                            $overdue_loans = isset($payor['overdue_loans']) ? (int) $payor['overdue_loans'] : 0;
+                                            $total_paid = isset($payor['total_paid']) ? (float) $payor['total_paid'] : 0;
+                                            $full_name = isset($payor['full_name']) ? $payor['full_name'] : 'Unknown Client';
+
+                                            $completion_rate = $total_loans > 0 ? round(($completed_loans / $total_loans) * 100, 1) : 0;
+                                            $overdue_rate = $total_loans > 0 ? round(($overdue_loans / $total_loans) * 100, 1) : 0;
                                             ?>
                                             <div
                                                 class="list-group-item border-0 py-2 bg-transparent <?php echo $index === 0 ? 'bg-warning-light' : ''; ?>">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
                                                         <div class="font-weight-bold">
-                                                            <?php
-                                                            // Capitalize first letter of each word
-                                                            if (isset($payor['full_name'])) {
-                                                                echo ucwords(strtolower($payor['full_name']));
-                                                            }
-                                                            ?>
+                                                            <?php echo ucwords(strtolower($full_name)); ?>
                                                             <?php if ($index === 0): ?>
                                                                 <span class="badge badge-warning ml-1">Top</span>
                                                             <?php endif; ?>
                                                         </div>
                                                         <div class="small text-muted">
-                                                            <?php echo $payor['total_loans']; ?> loans •
+                                                            <?php echo $total_loans; ?> loans •
                                                             <?php echo $completion_rate; ?>% completed
                                                         </div>
                                                     </div>
@@ -585,7 +539,7 @@
                                                         </div>
                                                         <div class="small text-muted">
                                                             ₱
-                                                            <?php echo number_format($payor['total_paid'], 2); ?>
+                                                            <?php echo number_format($total_paid, 2); ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -606,7 +560,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script>
