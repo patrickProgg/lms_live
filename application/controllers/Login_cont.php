@@ -38,7 +38,7 @@ class Login_cont extends CI_Controller
             echo json_encode([
                 'success' => true,
                 'message' => 'Login successful',
-                'redirect' => base_url('client')
+                'redirect' => base_url('dashboard')
             ]);
         } else {
             echo json_encode([
