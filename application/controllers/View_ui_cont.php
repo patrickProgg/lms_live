@@ -65,21 +65,63 @@ class View_ui_cont extends CI_Controller
         // // Subquery to sum payments per loan
         // $subquery = '(SELECT loan_id, SUM(amt) AS payment_total FROM tbl_payment GROUP BY loan_id) AS p';
 
+        // $data['total_loan_amt'] = $this->db
+        //     ->select_sum('tbl_loan.total_amt')
+        //     ->from('tbl_loan')
+        //     ->join('tbl_client', 'tbl_loan.cl_id = tbl_client.id')
+        //     ->get()
+        //     ->row()
+        //     ->total_amt ?: 0;
+
+        // $data['total_capital_loan_amt'] = $this->db
+        //     ->select_sum('tbl_loan.capital_amt')
+        //     ->from('tbl_loan')
+        //     ->join('tbl_client', 'tbl_loan.cl_id = tbl_client.id')
+        //     ->get()
+        //     ->row()
+        //     ->capital_amt ?: 0;
+
         $data['total_loan_amt'] = $this->db
-            ->select_sum('tbl_loan.total_amt')
+            ->select("
+                SUM(
+                    CASE
+                        WHEN tbl_loan.status = 'overdue' THEN 
+                            (tbl_loan.total_amt - COALESCE(
+                                (SELECT SUM(amt) FROM tbl_payment 
+                                WHERE loan_id = tbl_loan.id 
+                                AND payment_for BETWEEN DATE_ADD(tbl_loan.start_date, INTERVAL 1 DAY) AND tbl_loan.due_date), 0)
+                            )
+                        ELSE 
+                            tbl_loan.total_amt
+                    END
+                ) AS total_loan_amt
+            ", false)
             ->from('tbl_loan')
             ->join('tbl_client', 'tbl_loan.cl_id = tbl_client.id')
             ->get()
             ->row()
-            ->total_amt ?: 0;
+            ->total_loan_amt ?? 0;
 
         $data['total_capital_loan_amt'] = $this->db
-            ->select_sum('tbl_loan.capital_amt')
+            ->select("
+                SUM(
+                    CASE
+                        WHEN tbl_loan.status = 'overdue' THEN 
+                            (tbl_loan.total_amt - COALESCE(
+                                (SELECT SUM(amt) FROM tbl_payment 
+                                WHERE loan_id = tbl_loan.id 
+                                AND payment_for BETWEEN DATE_ADD(tbl_loan.start_date, INTERVAL 1 DAY) AND tbl_loan.due_date), 0)
+                            )
+                        ELSE 
+                            tbl_loan.capital_amt
+                    END
+                ) AS total_capital_loan_amt
+            ", false)
             ->from('tbl_loan')
             ->join('tbl_client', 'tbl_loan.cl_id = tbl_client.id')
             ->get()
             ->row()
-            ->capital_amt ?: 0;
+            ->total_capital_loan_amt ?? 0;
 
         $data['total_added_loan_amt'] = $this->db
             ->select_sum('tbl_loan.added_amt')
