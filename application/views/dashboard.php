@@ -166,11 +166,11 @@
     <ul class="box-info">
 
         <a href="<?= base_url(); ?>client" style="text-decoration: none; color: inherit;">
-            <li style="border-bottom: 2px solid rgba(255, 99, 132, 1);">
-                <i class='bx bx-group' style="background: rgba(255, 99, 132, 0.2); color: rgba(255, 99, 132, 1);"></i>
+            <li style="border-bottom: 2px solid rgba(54, 162, 235, 1);">
+                <!-- <i class='bx bx-group' style="background: rgba(255, 99, 132, 0.2); color: rgba(255, 99, 132, 1);"></i> -->
                 <span class="text">
                     <h3><?php echo $total_client; ?></h3>
-                    <p style="color:rgba(255, 99, 132, 1)">Active Clients</p>
+                    <p>Active Clients</p>
                 </span>
             </li>
         </a>
@@ -186,40 +186,86 @@
                 <p style="color:rgba(255, 159, 64, 1)">Total Released</p>
             </span>
         </li> -->
-        <li style="border-bottom: 2px solid rgba(255, 159, 64, 1);">
-            <i class='bx bx-dollar-circle'
-                style="background: rgba(255, 159, 64, 0.2); color: rgba(255, 159, 64, 1);"></i>
+        <li style="border-bottom: 2px solid rgba(54, 162, 235, 1);">
+            <!-- <i class='bx bx-dollar-circle' style="background: rgba(255, 159, 64, 0.2); color: rgba(255, 159, 64, 1);"></i> -->
             <span class="text">
-                <h3>₱<?= number_format(($total_loan_amt ?? 0) - ($total_capital_loan_amt ?? 0), 2) ?></h3>
-                <p style="color:rgba(255, 159, 64, 1)">Total Profit</p>
+                <h3>₱ <?= number_format($total_loan_amt - $total_capital_loan_amt, 2) ?></h3>
+                <p>Total Profit</p>
+            </span>
+        </li>
+        <!-- </a> -->
+
+        <!-- <a href="<?= base_url(); ?>location" style="text-decoration: none; color: inherit;"> -->
+        <li style="border-bottom: 2px solid rgba(54, 162, 235, 1);">
+            <!-- <i class='bx bx-wallet-alt' style="background: rgba(75, 192, 192, 0.2); color: rgba(75, 192, 192, 1);"></i> -->
+            <span class="text">
+                <h3>₱ <?= number_format($total_receivables, 2) ?></h3>
+                <p>Total Receivables</p>
+            </span>
+        </li>
+        <!-- </a> -->
+
+        <li style="border-bottom: 2px solid rgba(54, 162, 235, 1);">
+            <!-- <i class='bx bx-coins' style="background: rgba(255, 184, 102, 0.2); color: rgba(255, 184, 102, 1);"></i> -->
+            <span class="text">
+                <h3>₱ <?= number_format($total_payment, 2) ?>
+                </h3>
+                <p>Total Collectibles</p>
             </span>
         </li>
 
-        <li style="border-bottom: 2px solid rgba(75, 192, 192, 1);">
-            <i class='bx bx-wallet-alt' style="background: rgba(75, 192, 192, 0.2); color: rgba(75, 192, 192, 1);"></i>
+        <li style="border-bottom: 2px solid rgba(54, 162, 235, 1);">
+            <!-- <i class='bx bx-coins' style="background: rgba(255, 184, 102, 0.2); color: rgba(255, 184, 102, 1);"></i> -->
             <span class="text">
-                <h3>₱<?= number_format(($total_loan_amt ?? 0) - ($total_loan_payment ?? 0), 2) ?></h3>
-                <p style="color:rgba(75, 192, 192, 1)">Total Receivables</p>
+                <h3>₱ <?= number_format($total_capital, 2) ?>
+                </h3>
+                <p>Total Capital</p>
+            </span>
+        </li>
+
+        <li style="border-bottom: 2px solid rgb(54, 162, 235, 1);">
+            <!-- <i class='bx bx-coins' style="background: rgba(255, 184, 102, 0.2); color: rgba(255, 184, 102, 1);"></i> -->
+            <span class="text">
+                <h3>₱ <?= number_format($total_amt, 2) ?>
+                </h3>
+                <p>Total Amount</p>
+            </span>
+        </li>
+
+        <li style="border-bottom: 2px solid rgb(54, 162, 235, 1);">
+            <!-- <i class='bx bx-coins' style="background: rgba(255, 184, 102, 0.2); color: rgba(255, 184, 102, 1);"></i> -->
+            <span class="text">
+                <h3>₱ <?= number_format($total_interest, 2) ?>
+                </h3>
+                <p>Total Interest</p>
+            </span>
+        </li>
+
+        <li style="border-bottom: 2px solid rgb(54, 162, 235, 1);">
+            <!-- <i class='bx bx-coins' style="background: rgba(255, 184, 102, 0.2); color: rgba(255, 184, 102, 1);"></i> -->
+            <span class="text">
+                <h3>₱ <?= number_format($total_added, 2) ?>
+                </h3>
+                <p>Total Added</p>
             </span>
         </li>
 
         <a href="<?= base_url(); ?>pull_out" style="text-decoration: none; color: inherit;">
-            <li style="border-bottom: 2px solid rgba(153, 102, 255, 1);">
-                <i class='bx bx-log-out'
-                    style="background: rgba(153, 102, 255, 0.2); color: rgba(153, 102, 255, 1);"></i>
+            <li style="border-bottom: 2px solid rgba(54, 162, 235, 1);">
+                <!-- <i class='bx bx-log-out' style="background: rgba(153, 102, 255, 0.2); color: rgba(153, 102, 255, 1);"></i> -->
                 <span class="text">
-                    <h3>₱<?= number_format($total_pull_out ?? 0, 2) ?></h3>
-                    <p style="color:rgba(153, 102, 255, 1)">Total Pull Out</p>
+                    <h3>₱ <?= number_format($total_pull_out, 2) ?></h3>
+                    <p>Total Pull Out</p>
                 </span>
             </li>
         </a>
 
         <a href="<?= base_url(); ?>expenses" style="text-decoration: none; color: inherit;">
             <li style="border-bottom: 2px solid rgba(54, 162, 235, 1); ">
-                <i class='bx bxs-flame' style="background: rgba(54, 162, 235, 0.2); color: rgba(54, 162, 235, 1);"></i>
+                <!-- <i class='bx bxs-flame' style="background: rgba(54, 162, 235, 0.2); color: rgba(54, 162, 235, 1);"></i> -->
                 <span class="text">
-                    <h3>₱<?= number_format($total_expenses ?? 0, 2) ?></h3>
-                    <p style="color:rgba(54, 162, 235, 1)">Total Expenses</p>
+                    <h3>₱ <?= number_format($total_expenses, 2) ?></h3>
+                    <p>Total Expenses</p>
                 </span>
             </li>
         </a>
@@ -228,6 +274,56 @@
 
 
 <div class="row mb-3">
+    <!-- <div class="col-md-8 px-3">
+        <div class="card h-100">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0" style="display: flex; align-items: center; gap: 10px;">
+                        <span>💰 Payment Filter</span>
+                        <form method="GET" action="" id="dateForm" style="margin: 0;">
+                            <input type="date"
+                                style="width: 150px; display: inline-block; height: 28px; background-color: white; color: #444242; border-radius: 6px; border:1px solid var(--bs-info)"
+                                class="form-control" id="selected_date" name="selected_date"
+                                value="<?php echo $selected_date; ?>">
+                        </form>
+                    </h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+                        <h4 class="text-muted mb-3" id="dateRangeText">
+                        </h4>
+
+                        <div class="display-4 font-weight-bold text-success mb-3" id="rangeTotalDisplay">
+                        </div>
+
+                        <div class="text-muted" id="rangeInfoDisplay">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 text-center">
+                    <small class="text-muted">
+                        Quick select:
+                        <a href="#" data-range="day" data-date="<?php echo date('Y-m-d'); ?>"
+                            class="btn btn-sm btn-outline-secondary quick-select">
+                            Today
+                        </a>
+                        <a href="#" data-range="week" data-date="<?php echo $selected_date; ?>"
+                            class="btn btn-sm btn-outline-secondary quick-select">
+                            Week
+                        </a>
+                        <a href="#" data-range="month" data-date="<?php echo $selected_date; ?>"
+                            class="btn btn-sm btn-outline-secondary quick-select">
+                            Month
+                        </a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
     <div class="col-md-8 px-3">
         <div class="card h-100">
             <div class="card-header">
@@ -247,7 +343,7 @@
                             <input type="date"
                                 style="font-size: 12px; width: 150px; display: inline-block; height: 28px; background-color: white; color: #444242; border-radius: 6px; border:1px solid var(--bs-info)"
                                 class="form-control" id="selected_date" name="selected_date"
-                                value="<?php echo isset($selected_date) ? $selected_date : date('Y-m-d'); ?>">
+                                value="<?php echo $selected_date; ?>">
                         </div>
                     </h3>
                 </div>
@@ -276,13 +372,11 @@
                             class="btn btn-sm btn-outline-secondary quick-select">
                             Today
                         </a>
-                        <a href="#" data-range="week"
-                            data-date="<?php echo isset($selected_date) ? $selected_date : date('Y-m-d'); ?>"
+                        <a href="#" data-range="week" data-date="<?php echo $selected_date; ?>"
                             class="btn btn-sm btn-outline-secondary quick-select">
                             Week
                         </a>
-                        <a href="#" data-range="month"
-                            data-date="<?php echo isset($selected_date) ? $selected_date : date('Y-m-d'); ?>"
+                        <a href="#" data-range="month" data-date="<?php echo $selected_date; ?>"
                             class="btn btn-sm btn-outline-secondary quick-select">
                             Month
                         </a>
@@ -303,7 +397,7 @@
                                     Ongoing Loans
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <?php echo isset($loan_status_counts['ongoing']) ? $loan_status_counts['ongoing'] : 0; ?>
+                                    <?php echo $loan_status_counts['ongoing'] ?? 0; ?>
                                 </div>
                                 <div class="mt-2">
                                     <span class="badge badge-primary text-primary">Active</span>
@@ -317,6 +411,29 @@
                 </div>
             </div>
 
+            <!-- <div class="col-md-12 d-flex mt-3">
+                <div class="card border-left-warning shadow h-100 w-100">
+                    <div class="card-body py-2 d-flex flex-column justify-content-between">
+                        <div class="row no-gutters align-items-center flex-grow-1">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                    Overdue Loans
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <?php echo $loan_status_counts['overdue'] ?? 0; ?>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="badge badge-danger text-danger">Attention Needed</span>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
             <div class="col-md-12 d-flex mt-3">
                 <div class="card border-left-warning shadow h-100 w-100">
                     <div class="card-body py-2 d-flex flex-column justify-content-between">
@@ -326,10 +443,34 @@
                                     Overdue Loans
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <?php echo isset($loan_status_counts['overdue']) ? $loan_status_counts['overdue'] : 0; ?>
+                                    <?php echo $loan_status_counts['overdue'] ?? 0; ?>
                                 </div>
                                 <div class="mt-2">
                                     <span class="badge badge-danger text-danger">Attention Needed</span>
+                                    <!-- Button to show names -->
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-2"
+                                        onclick="showOverdueClients()">
+                                        <i class="fas fa-users"></i> View
+                                    </button>
+                                </div>
+                                <!-- Hidden list of overdue clients -->
+                                <div id="overdueList" style="display: none; margin-top: 10px;">
+                                    <?php if (!empty($overdue_clients)): ?>
+                                        <?php
+                                        $names = array_column($overdue_clients, 'full_name');
+                                        $unique_names = array_unique($names);
+                                        ?>
+                                        <ul class="list-group">
+                                            <?php foreach ($unique_names as $name): ?>
+                                                <li class="list-group-item list-group-item-danger py-1">
+                                                    <i class="fas fa-user text-danger"></i>
+                                                    <?php echo $name; ?>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php else: ?>
+                                        <p class="text-success">✅ No overdue clients</p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -349,7 +490,7 @@
                                     Completed Loans
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <?php echo isset($loan_status_counts['completed']) ? $loan_status_counts['completed'] : 0; ?>
+                                    <?php echo $loan_status_counts['completed'] ?? 0; ?>
                                 </div>
                                 <div class="mt-2">
                                     <span class="badge badge-success text-success">Paid Off</span>
@@ -380,6 +521,7 @@
                             <option value="pullout">Pull Out</option>
                             <option value="expenses">Expenses</option>
                         </select>
+                        <!-- <span class="mx-2">-</span> -->
                         <select id="yearSelect" class="form-control-sm border-info"
                             style="width: 80px; display: inline-block; height: 28px; background-color: white; color: #444242;">
                         </select>
@@ -396,7 +538,7 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <h5 class="card-title text-center mb-4">💰 Year
-                                    <?php echo isset($current_year) ? $current_year : date('Y'); ?> Summary
+                                    <?php echo $current_year; ?> Summary
                                 </h5>
 
                                 <div class="mb-3">
@@ -404,7 +546,7 @@
                                         <span class="text-muted">Total</span>
                                         <span class="font-weight-bold text-success total-collection">
                                             ₱
-                                            <?php echo isset($year_total_payment) ? number_format($year_total_payment, 2) : number_format(0, 2); ?>
+                                            <?php echo number_format($year_total_payment, 2); ?>
                                         </span>
                                     </div>
                                     <div class="progress" style="height: 8px;">
@@ -418,26 +560,23 @@
                                         <span class="font-weight-bold text-primary average-monthly">
                                             ₱
                                             <?php
-                                            $year_total = isset($year_total_payment) ? $year_total_payment : 0;
-                                            $avg_monthly = $year_total / 12;
+                                            $avg_monthly = $year_total_payment / 12;
                                             echo number_format($avg_monthly, 2);
                                             ?>
                                         </span>
                                     </div>
                                     <div class="progress" style="height: 8px;">
                                         <div class="progress-bar bg-primary"
-                                            style="width: <?php echo $year_total > 0 ? min(100, ($avg_monthly / $year_total) * 100) : 0; ?>%">
+                                            style="width: <?php echo min(100, ($avg_monthly / max($year_total_payment, 1)) * 100); ?>%">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <?php
-                                    $monthly_payments = isset($monthly_payments) && is_array($monthly_payments) ? $monthly_payments : array_fill(0, 12, 0);
-                                    $months = isset($months) && is_array($months) ? $months : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                                    $max_month = !empty($monthly_payments) ? max($monthly_payments) : 0;
-                                    $max_month_index = $max_month > 0 ? array_search($max_month, $monthly_payments) : 0;
-                                    $max_month_name = isset($months[$max_month_index]) ? $months[$max_month_index] : 'N/A';
+                                    $max_month = $monthly_payments ? max($monthly_payments) : 0;
+                                    $max_month_index = $max_month ? array_search($max_month, $monthly_payments) : 0;
+                                    $max_month_name = $months[$max_month_index] ?? 'N/A';
                                     ?>
                                     <div class="d-flex justify-content-between mb-1">
                                         <span class="text-muted">Highest Month (
@@ -450,17 +589,16 @@
                                     </div>
                                     <div class="progress" style="height: 8px;">
                                         <div class="progress-bar bg-warning"
-                                            style="width: <?php echo $year_total > 0 ? ($max_month / $year_total) * 100 : 0; ?>%">
+                                            style="width: <?php echo $max_month ? ($max_month / max($year_total_payment, 1)) * 100 : 0; ?>%">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <?php
-                                    $filtered_payments = array_filter($monthly_payments);
-                                    $min_month = !empty($filtered_payments) ? min($filtered_payments) : 0;
-                                    $min_month_index = $min_month > 0 ? array_search($min_month, $monthly_payments) : 0;
-                                    $min_month_name = isset($months[$min_month_index]) ? $months[$min_month_index] : 'N/A';
+                                    $min_month = $monthly_payments ? min(array_filter($monthly_payments)) : 0;
+                                    $min_month_index = $min_month ? array_search($min_month, $monthly_payments) : 0;
+                                    $min_month_name = $months[$min_month_index] ?? 'N/A';
                                     ?>
                                     <div class="d-flex justify-content-between mb-1">
                                         <span class="text-muted">Lowest Month (
@@ -473,7 +611,7 @@
                                     </div>
                                     <div class="progress" style="height: 8px;">
                                         <div class="progress-bar bg-info"
-                                            style="width: <?php echo $year_total > 0 ? ($min_month / $year_total) * 100 : 0; ?>%">
+                                            style="width: <?php echo $min_month ? ($min_month / max($year_total_payment, 1)) * 100 : 0; ?>%">
                                         </div>
                                     </div>
                                 </div>
@@ -492,6 +630,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="card-title mb-0">🏆 Top Good Clients</h3>
+                    <!-- <span class="badge badge-danger" style="color: #444242;">Least Overduess</span> -->
                 </div>
             </div>
             <div class="card-body pt-3 pb-3">
@@ -505,30 +644,30 @@
                                 <h5 class="card-title text-center mb-3">📊 Performance Metrics</h5>
 
                                 <div class="list-group">
-                                    <?php if (!empty($good_payors) && is_array($good_payors)): ?>
+                                    <?php if (!empty($good_payors)): ?>
                                         <?php foreach ($good_payors as $index => $payor):
-                                            // Safely access array keys with null coalescing
-                                            $total_loans = isset($payor['total_loans']) ? (int) $payor['total_loans'] : 0;
-                                            $completed_loans = isset($payor['completed_loans']) ? (int) $payor['completed_loans'] : 0;
-                                            $overdue_loans = isset($payor['overdue_loans']) ? (int) $payor['overdue_loans'] : 0;
-                                            $total_paid = isset($payor['total_paid']) ? (float) $payor['total_paid'] : 0;
-                                            $full_name = isset($payor['full_name']) ? $payor['full_name'] : 'Unknown Client';
-
-                                            $completion_rate = $total_loans > 0 ? round(($completed_loans / $total_loans) * 100, 1) : 0;
-                                            $overdue_rate = $total_loans > 0 ? round(($overdue_loans / $total_loans) * 100, 1) : 0;
+                                            $completion_rate = $payor['total_loans'] > 0 ?
+                                                round(($payor['completed_loans'] / $payor['total_loans']) * 100, 1) : 0;
+                                            $overdue_rate = $payor['total_loans'] > 0 ?
+                                                round(($payor['overdue_loans'] / $payor['total_loans']) * 100, 1) : 0;
                                             ?>
                                             <div
                                                 class="list-group-item border-0 py-2 bg-transparent <?php echo $index === 0 ? 'bg-warning-light' : ''; ?>">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
                                                         <div class="font-weight-bold">
-                                                            <?php echo ucwords(strtolower($full_name)); ?>
+                                                            <?php
+                                                            // Capitalize first letter of each word
+                                                            if (isset($payor['full_name'])) {
+                                                                echo ucwords(strtolower($payor['full_name']));
+                                                            }
+                                                            ?>
                                                             <?php if ($index === 0): ?>
                                                                 <span class="badge badge-warning ml-1">Top</span>
                                                             <?php endif; ?>
                                                         </div>
                                                         <div class="small text-muted">
-                                                            <?php echo $total_loans; ?> loans •
+                                                            <?php echo $payor['total_loans']; ?> loans •
                                                             <?php echo $completion_rate; ?>% completed
                                                         </div>
                                                     </div>
@@ -539,7 +678,7 @@
                                                         </div>
                                                         <div class="small text-muted">
                                                             ₱
-                                                            <?php echo number_format($total_paid, 2); ?>
+                                                            <?php echo number_format($payor['total_paid'], 2); ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -562,7 +701,17 @@
 </div>
 
 
+
 <script>
+
+    function showOverdueClients() {
+        var list = document.getElementById('overdueList');
+        if (list.style.display === 'none' || list.style.display === '') {
+            list.style.display = 'block';
+        } else {
+            list.style.display = 'none';
+        }
+    }
 
     $(document).ready(function () {
         const ctx = document.getElementById('paymentChart').getContext('2d');
@@ -776,6 +925,8 @@
         }
 
         function updateYearSummary(data, year, yearTotal = null) {
+
+            console.log(data); // Debugging line to check the data received
             const total = yearTotal || data.reduce((a, b) => a + b, 0);
             const avgMonthly = total / 12;
             const maxMonthValue = Math.max(...data);
