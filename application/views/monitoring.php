@@ -1501,22 +1501,39 @@
         });
 
         // Handle dropdown item selection
-        $(document).on('click', '#header_date_arr .dropdown-item', function (e) {
-            e.preventDefault();
+        // $(document).on('click', '#header_date_arr .dropdown-item', function (e) {
+        //     e.preventDefault();
 
-            let loanId = $(this).data('id');
-            let firstStatus = $(this).data('first_status');
-            let formattedDate = $(this).data('formatted');
+        //     let loanId = $(this).data('id');
+        //     let firstStatus = $(this).data('first_status');
+        //     let formattedDate = $(this).data('formatted');
 
-            // Update button text
-            $('#dateDropdownBtn').text(formattedDate);
+        //     // Update button text
+        //     $('#dateDropdownBtn').text(formattedDate);
 
-            // Store selected values
-            $('#selected_date_id').val(loanId);
-            $('#header_loan_id').val(loanId);
+        //     // Store selected values
+        //     $('#selected_date_id').val(loanId);
+        //     $('#header_loan_id').val(loanId);
 
-            // Trigger loan details load
-            triggerLoanDetails(loanId, firstStatus);
+        //     // Trigger loan details load
+        //     triggerLoanDetails(loanId, firstStatus);
+        // });
+
+        $(document).ready(function () {
+            // Use namespace to safely remove only this specific event
+            $(document).off('click.loanDropdown', '#header_date_arr .dropdown-item').on('click.loanDropdown', '#header_date_arr .dropdown-item', function (e) {
+                e.preventDefault();
+
+                let loanId = $(this).data('id');
+                let firstStatus = $(this).data('first_status');
+                let formattedDate = $(this).data('formatted');
+
+                $('#dateDropdownBtn').text(formattedDate);
+                $('#selected_date_id').val(loanId);
+                $('#header_loan_id').val(loanId);
+
+                triggerLoanDetails(loanId, firstStatus);
+            });
         });
 
         function triggerLoanDetails(loanId, firstStatus) {
@@ -3165,6 +3182,14 @@
 
     addVariance.addEventListener('hidden.bs.modal', () => {
         varianceModal.classList.remove('modal-dimmed');
+    });
+
+    $('#viewLoaner').on('hidden.bs.modal', function () {
+        // Clear the dropdown menu
+        $('#header_date_arr').empty();
+
+        // Optionally add default option
+        $('#header_date_arr').append('<li><a class="dropdown-item" href="#">Select Date</a></li>');
     });
 
 </script>
