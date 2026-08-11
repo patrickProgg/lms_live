@@ -344,6 +344,7 @@ class PullOut_cont extends CI_Controller
         $amount = floatval($this->input->post('amount'));
         $notes = $this->input->post('notes');
         $category = $this->input->post('category');
+        $date_added = $this->input->post('date');
 
         // Validate category
         $allowed_categories = ['processing_fee', 'ticket', 'profit', 'expansion', 'capital'];
@@ -415,7 +416,7 @@ class PullOut_cont extends CI_Controller
             'withdraw_amt' => $amount,
             'note' => $notes,
             'category' => $category,
-            'date_added' => date('Y-m-d H:i:s')
+            'date_added' => $date_added
         ];
 
         $inserted = $this->db->insert('tbl_withdrawal', $withdrawal_details);

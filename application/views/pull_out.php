@@ -677,8 +677,8 @@
                                                     <th style="width: 13%;">AMOUNT</th>
                                                     <th style="width: 15%;">CATEGORY</th>
                                                     <th style="width: 10%;">STATUS</th>
-                                                    <th style="width: 22%;">NOTES</th>
-                                                    <th style="width: 22%;">ACTIONS</th>
+                                                    <th>NOTES</th>
+                                                    <th style="width: 10%;">ACTIONS</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
